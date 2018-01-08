@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/derwt/AvantiCD/issues"
   },
-  "homepage": "https://github.com/derwt/AvantiCD#readme"
+  "homepage": "https://github.com/derwt/AvantiCD#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
