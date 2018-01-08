@@ -1,0 +1,19 @@
+{
+  "name": "avanticd",
+  "version": "1.0.0",
+  "description": "Back-end and Front-end for AvantiPFP Customer Database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derwt/AvantiCD.git"
+  },
+  "author": "derwt & micharyan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derwt/AvantiCD/issues"
+  },
+  "homepage": "https://github.com/derwt/AvantiCD#readme"
+}
