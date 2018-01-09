@@ -10,7 +10,7 @@ app.listen(PORT, () => {
 })
 
 app.get('/', (req, res, next) => {
-  res.send(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index.html');
 })
 
 // MongoClient.connect(URL, (err, client) => {
