@@ -4,7 +4,7 @@
   "description": "Back-end and Front-end for AvantiPFP Customer Database.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,12 +19,10 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "mongodb": "^3.0.1"
+    "mongodb": "^3.0.1",
+    "mongoose": "^4.13.9"
   },
   "devDependencies": {
     "nodemon": "^1.14.10"
-  },
-  "scripts": {
-    "dev": "nodemon server.js"
   }
 }
