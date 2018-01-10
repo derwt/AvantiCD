@@ -1,3 +1,4 @@
+
 ![Avanti Pizza CD](Images/logo_full_CD.png)
 
 # Get Them Pizza and Get it Fast!
@@ -10,3 +11,5 @@ Our stack is Bootstrap, Express.js, and MongoDB.
 ## Express.js
 
 ## MongoDB
+* Atlas
+* Compass
