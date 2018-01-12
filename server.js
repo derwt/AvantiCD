@@ -2,11 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 27017;
-const db = require('./db');
+const db = require('./config/db');
 
 // Require CID routes
-const customersRouter = require('./customers.js');
-app.use('/customers', customersRouter);
+const lookupRouter = require('./lookup.js');
+app.use('/lookup', lookupRouter);
 
 app.use(bodyParser.urlencoded({
   extended: true
