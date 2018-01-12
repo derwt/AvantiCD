@@ -1,5 +1,4 @@
-
-![Avanti Pizza CD](Images/logo_full_CD.png)
+![Avanti Pizza CD](Etc/Images/logo_full_CD.png)
 
 # Get Them Pizza and Get it Fast!
 
