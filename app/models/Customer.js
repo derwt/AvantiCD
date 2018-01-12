@@ -12,7 +12,7 @@ var customerSchema = new Schema({
   cross:   String,
   note:    String,
   ordered: Number
-}, {collection: 'Customers4'});
+}, {collection: 'Customers'});
 
 // Define Customer methods
 customerSchema.methods.getPhoneNumbers =     function() { for (var i = 0; i < this.phone.length; i++) { console.log(this.phone[i]); } };

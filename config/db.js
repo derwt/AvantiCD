@@ -6,8 +6,10 @@ var mongoDB = URL;
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });
+
 // Get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
+
 //Get the default connection
 var db = mongoose.connection;
 
@@ -19,5 +21,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // });
 
 module.exports = {
+  connection: db,
   url: URL
 }
