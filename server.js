@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 27017;
 const db = require('./config/db');
-require('./app/routes')(app);
+require('./app/routes')(app); // Catch-all redirect to index.html
 
 // Parse application/json
 app.use(bodyParser.json());
