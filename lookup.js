@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('./db');
+const db = require('./config/db');
 
 customersRouter = express.Router();
 
@@ -8,9 +8,9 @@ customersRouter.get('/', (req, res, next) => {
 });
 
 // Get a single customer
-customersRouter.get('/:number', (req, res, next) => {
-  
-  db.find({phone: req.params.number}, (err, data) => {
+customersRouter.get('/:phone', (req, res, next) => {
+
+  db.find({phone: req.params.phone}, (err, data) => {
     if (err) return handleError(err);
     if (!data[0]) return;
 
