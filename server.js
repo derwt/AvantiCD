@@ -18,18 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public'));
 
-// Require CID routes
-const lookupRouter = require('./lookup.js');
-app.use('/lookup', lookupRouter);
-
-require('./app/routes')(app); // Catch-all redirect to index.html
+// Require routes and catch-all redirect to index.html
+require('./app/routes')(app);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 })
-
-// app.get('/', (req, res, next) => {
-//     res.send('Hooray!');
-// });
 
 exports = module.exports = app;

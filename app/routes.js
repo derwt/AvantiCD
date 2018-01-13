@@ -1,24 +1,21 @@
 const Customer = require('./models/customer');
 const path = require('path');
+const customersRouter = require('./customers');
 
 module.exports = function(app) {
 
-	// server routes ===========================================================
-	// handle things like api calls
-	// authentication routes
+  // server routes ===========================================================
+  // handle things like api calls
 
-	app.get('/', (req, res, next) => {
-    Customer.find((err, customers) => {
-      if (err) res.status(404).send(err);
+  // authentication routes
+  app.use('/customers', customersRouter);
 
-      console.log(customers);
+  // frontend routes =========================================================
+  // route to handle all angular requests
+  app.get('*', function(req, res) {
+    res.sendFile('./public/index.html', {
+      root: path.join(__dirname, '../')
     });
   });
-
-	// frontend routes =========================================================
-	// route to handle all angular requests
-	app.get('*', function(req, res) {
-		res.sendFile('./public/index.html', { root: path.join(__dirname, '../') });
-	});
 
 };
