@@ -23,7 +23,7 @@ var customerSchema = new Schema({
       },
       message: '{VALUE} is not a valid phone number!',
     },
-    required: [true, 'User phone number required']
+    required: [true, 'Customer phone number required']
   },
   city: {
     type: String,
@@ -33,7 +33,11 @@ var customerSchema = new Schema({
     },
     required: [true, 'Customer city required'],
   },
-  address: String,
+  address: {
+    type: String,
+    match: [/(^\d+\s[a-zA-Z]+\s[a-zA-Z]+$)/, 'Input address does not pass regex'],
+    required: [true, 'Customer address required']
+  },
   cross:   String,
   note:    String,
   ordered: Number
