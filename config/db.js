@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Promise =  require('bluebird');
 const URL = 'mongodb://localhost:27017/avantiCD';
 
 //Set up default mongoose connection
@@ -8,7 +9,7 @@ mongoose.connect(mongoDB, {
 });
 
 // Get Mongoose to use the global promise library
-mongoose.Promise = global.Promise;
+mongoose.Promise = Promise;
 
 //Get the default connection
 var db = mongoose.connection;

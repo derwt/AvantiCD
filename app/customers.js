@@ -57,7 +57,13 @@ customersRouter.put('/:number', (req, res, next) => {
       // }
       // defaultField('phone');
       customer.getPhoneNumbers();
-      customer.save();
+      customer.validate((err) => {
+        if (err) {
+          console.log(err);
+        } else {
+            customer.save();
+        }
+      });
       res.json(data);
   });
 
