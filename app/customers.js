@@ -42,6 +42,7 @@ customersRouter.put('/:number', (req, res, next) => {
   Customer.find({ phone: req.params.number }, (err, data) => {
     if (err) res.status(404).send(err);
 
+
       customer = new Customer({
         cid:     req.body.cid,
         phone:   req.body.phone,
@@ -51,13 +52,13 @@ customersRouter.put('/:number', (req, res, next) => {
         note:    req.body.note,
         ordered: req.body.ordered  });
 
-      isNull = (field) => {
-          return field == "" || field == null;
-      }
-      // if (!isNull(req.body.phone)) customer.phone = req.body.phone;
-      console.log(customer);
+      // defaultField = (field) => {
+        // if (isNull(req.body[field])) customer[field] = data[field];
+      // }
+      // defaultField('phone');
       customer.getPhoneNumbers();
-      res.json(customer);
+      customer.save();
+      res.json(data);
   });
 
 });
