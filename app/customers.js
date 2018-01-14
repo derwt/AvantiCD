@@ -39,24 +39,22 @@ customersRouter.post('/', (req, res) => {
 });
 
 customersRouter.put('/:number', (req, res, next) => {
-  Customer.findOne({ phone: req.params.number }, (err, data) => {
+  Customer.findOne({ phone: req.params.number }, (err, customer) => {
     if (err) res.status(404).send(err);
 
     isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
     defaultField = (field) => {
-      if (isEmpty(field)) return data[field];
+      if (isEmpty(field)) return customer[field];
       else return req.body[field];
     }
 
-      customer = new Customer({
-        cid:     data.cid,
-        phone:   defaultField('phone'),
-        city:    defaultField('city'),
-        address: defaultField('address'),
-        cross:   defaultField('cross'),
-        note:    defaultField('note'),
-        ordered: defaultField('ordered')
-      });
+      console.log("Updating customer with CID: " + customer.cid);
+      customer.phone   = defaultField('phone');
+      customer.city    = defaultField('city');
+      customer.address = defaultField('address');
+      customer.cross   = defaultField('cross');
+      customer.note    = defaultField('note');
+      customer.ordered = defaultField('ordered')
 
       customer.validate((err) => {
         if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);
@@ -64,6 +62,7 @@ customersRouter.put('/:number', (req, res, next) => {
           customer.save();
         }
       });
+
       res.json(customer);
   });
 
