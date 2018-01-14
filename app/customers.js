@@ -15,13 +15,13 @@ customersRouter.get('/:number', (req, res, next) => {
   Customer.find({ phone: req.params.number }, (err, customers) => {
     if (err) res.status(404).send(err);
 
-    console.log(customers);
+    res.json(customers);
   });
 });
 
 customersRouter.post('/', (req, res) => {
 
-  var customer = new Customer();
+  let customer = new Customer();
   customer.cid = req.body.cid;
   customer.phone = req.body.phone;
   customer.city = req.body.city;
@@ -42,6 +42,7 @@ customersRouter.put('/:number', (req, res, next) => {
   Customer.findOne({ phone: req.params.number }, (err, customer) => {
     if (err) res.status(404).send(err);
 
+    // Do not update a field when its matching input is empty ('')
     isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
     defaultField = (field) => {
       if (isEmpty(field)) return customer[field];
@@ -66,6 +67,15 @@ customersRouter.put('/:number', (req, res, next) => {
       res.json(customer);
   });
 
+});
+
+// Only call this after finding the correct customer through UI
+customersRouter.delete('/:cid', (req, res, next) => {
+  Customer.remove({ cid: req.params.cid }, (err, customer) => {
+    if (err) res.status(400).send(err);
+
+    res.json({ message: 'DELETE SUCCESS @ CID: ' + req.params.cid });
+  });
 });
 
 module.exports = customersRouter;
