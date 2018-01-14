@@ -58,11 +58,9 @@ customersRouter.put('/:number', (req, res, next) => {
       // defaultField('phone');
       customer.getPhoneNumbers();
       customer.validate((err) => {
-        if (err) {
-          console.log(err);
-        } else {
-            customer.save();
-        }
+        if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);
+        else
+          customer.save();
       });
       res.json(data);
   });
