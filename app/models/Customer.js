@@ -43,6 +43,7 @@ var customerSchema = new Schema({
   ordered: Number
 }, {collection: 'Customers'});
 
+// add comprehensive validation to 'unique' fields
 customerSchema.plugin(uniqueValidator);
 
 // Define Customer methods
