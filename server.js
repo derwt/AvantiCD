@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+app.set('view engine', 'pug'); // For using Pug: https://pugjs.org/api/getting-started.html
 
 // Configuration ===========================
 
