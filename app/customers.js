@@ -3,22 +3,7 @@ const Customer = require('./models/customer');
 
 customersRouter = express.Router();
 
-customersRouter.get('/', (req, res, next) => {
-  Customer.find((err, customers) => {
-    if (err) res.status(404).send(err);
-
-    res.json(customers);
-  });
-});
-
-customersRouter.get('/:number', (req, res, next) => {
-  Customer.find({ phone: req.params.number }, (err, customers) => {
-    if (err) res.status(404).send(err);
-
-    res.json(customers);
-  });
-});
-
+// CREATE
 customersRouter.post('/', (req, res) => {
 
   let customer = new Customer();
@@ -38,9 +23,34 @@ customersRouter.post('/', (req, res) => {
 
 });
 
-customersRouter.put('/:number', (req, res, next) => {
-  Customer.findOne({ phone: req.params.number }, (err, customer) => {
+// READ
+customersRouter.get('/:number', (req, res, next) => {
+  Customer.findOne({ phone: req.body.number }, (err, customers) => {
     if (err) res.status(404).send(err);
+    console.log('getting by phone number');
+    console.log(req.body.number);
+    console.log(req.query.number);
+    res.json(customers);
+  });
+});
+
+customersRouter.get('/', (req, res, next) => {
+  Customer.find((err, customers) => {
+    if (err) res.status(404).send(err);
+    console.log('getting everything');
+    res.json(customers);
+  });
+});
+
+// UPDATE
+customersRouter.put('/:number', (req, res, next) => {
+  Customer.findOne({ phone: req.body.number }, (err, customer) => {
+    if (err) res.status(404).send(err);
+    if (customer == undefined) {
+        console.log('GET FAILED: Customer with phone # ' + req.body.number + ' could not be found');
+        res.redirect('/');
+        return;
+    }
 
     // Do not update a field when its matching input is empty ('')
     isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
@@ -69,7 +79,7 @@ customersRouter.put('/:number', (req, res, next) => {
 
 });
 
-// Only call this after finding the correct customer through UI
+// DELETE: Only call this after finding the correct customer through UI
 customersRouter.delete('/:cid', (req, res, next) => {
   Customer.remove({ cid: req.params.cid }, (err, customer) => {
     if (err) res.status(400).send(err);
