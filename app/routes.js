@@ -11,9 +11,14 @@ module.exports = function(app) {
   app.use('/customers', customersRouter);
 
   // frontend routes =========================================================
+
+  app.get('/views/:name', (req, res, next) =>{
+    res.render('views/' + req.params.name);
+  });
+
   // route to handle all angular requests
   app.get('*', function(req, res) {
-    res.render('./public/views/index.pug', {
+    res.render('index.pug', {
       root: path.join(__dirname, '../')
     });
   });

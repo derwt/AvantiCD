@@ -1,0 +1,9 @@
+html
+  body
+    .jumbotron.text-center
+      h1 Home Page 4 Life
+      p {{ tagline }}
+      form(action="/customers/" enctype="text/plain" method="get")
+        label(for="name") Enter name:
+        input(ng-model="customer" type="text" name="number" value="{{customer}}")
+        input(type="submit" value="OK")

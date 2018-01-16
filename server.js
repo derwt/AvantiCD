@@ -3,7 +3,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+
+const pug = require('pug');
+const path = require('path');
+// app.engine('html', require('pug').renderFile);
 app.set('view engine', 'pug'); // For using Pug: https://pugjs.org/api/getting-started.html
+app.set("views", path.join(__dirname, '/public/'));
 
 // Configuration ===========================
 
