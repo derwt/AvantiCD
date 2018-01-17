@@ -5,5 +5,14 @@ html
       p {{ tagline }}
       form(action="/customers/" enctype="text/plain" method="get")
         label(for="name") Enter name:
-        input(ng-model="customer" type="text" name="number" value="{{customer}}")
+        input(ng-model="customer" type="text" name="number" value="")
         input(type="submit" value="OK")
+      div(ng-repeat="customer in customers")
+        p {{ customer.cid }}
+        p {{ customer.phone }}
+        p {{ customer.city }}
+        p {{ customer.address }}
+        p {{ customer.cross }}
+        p {{ customer.note }}
+        p {{ customer.ordered * 1000 | date }}
+        
