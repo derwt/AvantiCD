@@ -7,6 +7,10 @@
 .id-card {
 }
 
-.id-card h2 {
+.id-card h4 {
+  margin: auto;
+}
+
+.id-card p {
   margin: auto;
 }

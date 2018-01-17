@@ -6,7 +6,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
       controller: 'MainController'
     })
     .when("/nerds", {
-      templateUrl: 'views/IDCard',
+      templateUrl: 'views/nerd',
       controller: 'NerdController'
     })
     .otherwise({
