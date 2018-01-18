@@ -5,7 +5,7 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
   [
     {
       cid: 2349,
-      phone: [6506782766, 6504008921],
+      phone: [6506782755, 6504008921, 4539990000],
       city: "BL",
       address: "612  Southview Court",
       cross: "South Road",
@@ -13,13 +13,13 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
       ordered: 1511741627
     },
     {
-      cid: 2349,
-      phone: [6506782766],
+      cid: 3065,
+      phone: [6504008921, 6505954446],
       city: "BL",
-      address: "612  Southview Court",
-      cross: "South Road",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
       note: "Michael the pizza face. Is Not Cool!",
-      ordered: 1511741627
+      ordered: 1464389861
     }
   ];
   // $scope.addCustomer = () => { $scope.customers.push()}
