@@ -21,9 +21,32 @@
 }
 
 .id-card-half {
-  text-align: left;
+  display: flex;
+  justify-content: space-evenly;
   width: 50%;
   float: left;
+}
+
+.id-card-half div {
+  display: inline-block;
+}
+
+.id-card-top {
+  float: left;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+}
+
+.id-card-bottom {
+  float: left;
+  width: 100%;
+  height: 40px;
+}
+
+.id-card-address {
+  margin: 0px;
+  text-shadow: 1.5px 1.5px rgba(0,0,0,0.1);
 }
 
 .id-card h4 {
@@ -32,4 +55,17 @@
 
 .id-card p {
   margin: auto;
+}
+
+.id-card .phone-div {
+  display: inline-block;
+  width: 100%;
+  padding-top: 5px;
+  text-align: center;
+}
+
+.phone-div p {
+  float: left;
+  font-size: 15pt;
+  padding-right: 10px;
 }
