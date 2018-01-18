@@ -3,28 +3,41 @@
   height: 800px;
   overflow-x: hidden;
   overflow-y: auto;
+  padding: 2px 0px 0px 2px;
+}
+
+.id-card-template {
+  display: table;
+  width: calc(100% - 2px);
+  position: relative;
+  margin-bottom: 1px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 }
 
 .id-card {
   display: table-cell;
   vertical-align: middle;
-  width: 100%;
-  height: 125px;
-  padding: 10px;
-  border: 2px solid transparent;
-  transition: border .5s;
+  padding-top: 10px;
+  outline: transparent solid;
+  transition: outline .5s;
   text-decoration: none;
 }
 
+.id-card img {
+  float: left;
+  max-width: 25px;
+}
+
 .id-card:hover {
-  border: 2px solid #BC1E2C;
+  outline: 2px solid #BC1E2C;
 }
 
 .id-card-half {
   display: flex;
   justify-content: space-evenly;
-  width: 50%;
   float: left;
+  width: 50%;
+  padding: 5px 0px 2px 0px;
 }
 
 .id-card-half div {
@@ -35,6 +48,7 @@
   float: left;
   width: 100%;
   height: 35px;
+  padding-left: 10px;
   text-align: center;
 }
 
@@ -42,11 +56,12 @@
   float: left;
   width: 100%;
   height: 40px;
+  padding-left: 10px;
 }
 
 .id-card-address {
   margin: 0px;
-  text-shadow: 1.5px 1.5px rgba(0,0,0,0.1);
+  text-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.1);
 }
 
 .id-card h4 {
@@ -58,7 +73,8 @@
 }
 
 .id-card .phone-div {
-  display: inline-block;
+  display: flex;
+  justify-content: space-evenly;
   width: 100%;
   padding-top: 5px;
   text-align: center;

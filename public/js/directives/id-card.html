@@ -1,12 +1,13 @@
-<div class="id-card z-depth-1">
+<div class="id-card">
   <a onclick="">
     <div class="id-card-top">
-      <h2 class="h2-responsive id-card-address">{{ info.address }}</h2>
+      <img src="../../img/slice.png"/>
+      <h2 class="h2-responsive id-card-address">{{ info.address }} </h2>
     </div>
-    <div class="id-card-half">
+    <div class="id-card-half red lighten-3">
       <title-content title="Customer ID" content="info.cid"></title-content>
     </div>
-    <div class="id-card-half">
+    <div class="id-card-half grey lighten-3">
       <title-content title="Last Ordered" content="info.ordered * 1000 | date"></title-content>
     </div>
     <div class="id-card-bottom">
