@@ -1,14 +1,18 @@
 <div class="id-card z-depth-1">
   <a onclick="">
-    <div class="id-card-half">
-      <h4>CID: {{ info.cid }}</h4>
-      <p>{{ info.address }}</p>
-      <p>{{ info.phone }}</p>
+    <div class="id-card-top">
+      <h2 class="h2-responsive id-card-address">{{ info.address }}</h2>
     </div>
     <div class="id-card-half">
-      <h4>CID: {{ info.cid }}</h4>
-      <p>{{ info.address }}</p>
-      <p>{{ info.phone }}</p>
+      <title-content title="Customer ID" content="info.cid"></title-content>
+    </div>
+    <div class="id-card-half">
+      <title-content title="Last Ordered" content="info.ordered * 1000 | date"></title-content>
+    </div>
+    <div class="id-card-bottom">
+      <div class="phone-div">
+        <p ng-repeat="number in info.phone">{{ number }}</p>
+      </div>
     </div>
   </a>
 </div>

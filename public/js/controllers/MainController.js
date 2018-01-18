@@ -5,7 +5,7 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
   [
     {
       cid: 2349,
-      phone: 6506782766,
+      phone: [6506782766, 6504008921],
       city: "BL",
       address: "612  Southview Court",
       cross: "South Road",
@@ -14,7 +14,7 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
     },
     {
       cid: 2349,
-      phone: 6506782766,
+      phone: [6506782766],
       city: "BL",
       address: "612  Southview Court",
       cross: "South Road",
