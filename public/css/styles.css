@@ -86,11 +86,17 @@
   padding-right: 10px;
 }
 
+.phone-input-container {
+  display: inline-block;
+  padding: 10px 0px 10px 0px;
+}
+
 #phoneInput {
-font-size: 15pt;
+font-size: 20pt;
 font-weight: normal;
 color: black;
 text-align: center;
+width: 250px;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
