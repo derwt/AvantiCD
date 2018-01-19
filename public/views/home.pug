@@ -1,8 +1,12 @@
 html
   body
+    .md-form
+      input#phoneInput.form-control(limit-to="10" type="number" ng-model="search.main" placeholder="(123) 456-7890")
     .jumbotron.text-center
       h1 Home Page 4 Life
       p {{ tagline }}
     .id-card-container.z-depth-1-half
       div(ng-repeat="customer in customers")
         id-card(info="customer" class="id-card-template")
+          
+            
