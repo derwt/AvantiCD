@@ -23,4 +23,15 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
     }
   ];
   // $scope.addCustomer = () => { $scope.customers.push()}
+  let phoneInputReady = (input) => {
+    return input.length == 10;
+  }
+
+  let phoneInput = $('#phoneInput');
+  $(phoneInput).on('input',function(e){
+    if (!phoneInputReady(phoneInput.val())) return;
+
+      console.log(phoneInput.val());
+  });
+
 }]);
