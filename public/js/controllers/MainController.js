@@ -1,4 +1,4 @@
-angular.module('MainController', []).controller('MainController', ['$scope', function($scope) {
+angular.module('MainController', []).controller('MainController', ['$scope', '$http', '$routeParams' ,function($scope, $http, $routeParams) {
 
   $scope.tagline = 'Let\'s get some pizza ready!';
   $scope.customers =
@@ -31,6 +31,22 @@ angular.module('MainController', []).controller('MainController', ['$scope', fun
     if (!phoneInputReady(phoneInput.val())) return;
 
       console.log(phoneInput.val());
+
+      $http.get("http://localhost:27017/customers/6504008921").then(function(response) {
+        $scope.myWelcome = response.data;
+        console.log($scope.myWelcome);
+    });
   });
+
+//   $http({
+//     url: "http://localhost:27017/customers/2177783897",
+//     method: "GET",
+//     params: {
+//       phone: 2177783897
+//     }
+//   }).then(function(response) {
+//     $scope.myWelcome = response.data;
+//     console.log($scope.myWelcome);
+// });
 
 }]);
