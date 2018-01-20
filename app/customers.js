@@ -1,3 +1,4 @@
+// MODEL
 const express = require('express');
 const Customer = require('./models/customer');
 
