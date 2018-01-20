@@ -2,8 +2,11 @@
   max-width: 500px;
   height: 800px;
   overflow-x: hidden;
+  padding: 0px 0px 0px 2px;
+}
+
+.id-card-container .scrollable {
   overflow-y: auto;
-  padding: 2px 0px 0px 2px;
 }
 
 .id-card-template {
@@ -26,6 +29,15 @@
 .id-card img {
   float: left;
   max-width: 25px;
+}
+
+.id-card-badge {
+  position: absolute;
+  height: 25px;
+  font-size: 13pt;
+  line-height: 18px;
+  right: 10px;
+  top: 10px;
 }
 
 .id-card:hover {
@@ -91,12 +103,19 @@
   padding: 10px 0px 10px 0px;
 }
 
+.phone-input-background {
+  z-index: 1;
+  position: sticky;
+  top: 0px;
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
 #phoneInput {
-font-size: 20pt;
-font-weight: normal;
-color: black;
-text-align: center;
-width: 250px;
+  font-size: 20pt;
+  font-weight: normal;
+  color: black;
+  text-align: center;
+  width: 250px;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {

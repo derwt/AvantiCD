@@ -4,10 +4,9 @@ html
       h1 Home Page 4 Life
       p {{ tagline }}
     .id-card-container.z-depth-1-half
-      .text-center
+      .text-center.phone-input-background
         .phone-input-container
           input#phoneInput.form-control.input-phone(type="number" limit-to="10" placeholder="(123) 456-7890")
-      div(ng-repeat="customer in customers")
-        id-card(info="customer" class="id-card-template")
-          
-            
+      .scrollable
+        div(ng-repeat="customer in customers")
+          id-card(info="customer" class="id-card-template")            

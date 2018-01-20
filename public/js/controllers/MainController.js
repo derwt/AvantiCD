@@ -15,7 +15,52 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
     {
       cid: 3065,
       phone: [6504008921, 6505954446],
-      city: "BL",
+      city: "SC",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
+      note: "Michael the pizza face. Is Not Cool!",
+      ordered: 1464389861
+    },
+    {
+      cid: 3065,
+      phone: [6504008921, 6505954446],
+      city: "SM",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
+      note: "Michael the pizza face. Is Not Cool!",
+      ordered: 1464389861
+    },
+    {
+      cid: 3065,
+      phone: [6504008921, 6505954446],
+      city: "RWS",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
+      note: "Michael the pizza face. Is Not Cool!",
+      ordered: 1464389861
+    },
+    {
+      cid: 3065,
+      phone: [6504008921, 6505954446],
+      city: "RWC",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
+      note: "Michael the pizza face. Is Not Cool!",
+      ordered: 1464389861
+    },
+    {
+      cid: 3065,
+      phone: [6504008921, 6505954446],
+      city: "FC",
+      address: "2040 Ralston Avenue",
+      cross: "Alameda",
+      note: "Michael the pizza face. Is Not Cool!",
+      ordered: 1464389861
+    },
+    {
+      cid: 3065,
+      phone: [6504008921, 6505954446],
+      city: "HB",
       address: "2040 Ralston Avenue",
       cross: "Alameda",
       note: "Michael the pizza face. Is Not Cool!",
@@ -27,7 +72,7 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
   let phoneInputReady = (input) => { return input.length == 10; }
 
   let phoneInput = $('#phoneInput');
-  $(phoneInput).on('input',function(e){
+  $(phoneInput).on('input', (e) => {
     if (!phoneInputReady(phoneInput.val())) return;
 
       console.log(phoneInput.val());
