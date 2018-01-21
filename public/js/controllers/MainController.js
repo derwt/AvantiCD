@@ -67,7 +67,14 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
       ordered: 1464389861
     }
   ];
-  // $scope.addCustomer = () => { $scope.customers.push()}
+
+  $scope.select = (idCard) => {
+    $scope.selected = idCard;
+  }
+
+  $scope.isSelected = (idCard) => {
+    return $scope.selected === idCard;
+  }
 
   let phoneInputReady = (input) => { return input.length == 10; }
 

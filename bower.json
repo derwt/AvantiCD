@@ -1,12 +1,12 @@
 {
-	"name": "angular",
-	"version": "1.0.0",
-	"dependencies": {
-		"bootstrap": "latest",
-		"MDBootstrap": "latest",
-		"font-awesome": "latest",
-		"animate.css": "latest",
-		"angular": "latest",
-		"angular-route": "latest"
-	}
+  "name": "angular",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "MDBootstrap": "^4.4.5",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-route": "latest"
+  }
 }
