@@ -2,7 +2,6 @@
   max-width: 500px;
   height: 800px;
   overflow-x: hidden;
-  padding: 0px 0px 0px 2px;
 }
 
 .id-card-container .scrollable {
@@ -28,7 +27,7 @@
 }
 
 id-card.highlighted {
-  outline: 3px solid #BC1E2C;
+  outline: 3px solid #1E8BC3;
 }
 
 .id-card img {
@@ -45,7 +44,7 @@ id-card.highlighted {
   top: 10px;
 }
 
-.id-card-template:hover {
+.id-card-template:hover:not(.highlighted) {
   outline: 3px solid #BC1E2C;
 }
 

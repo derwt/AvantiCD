@@ -26,11 +26,9 @@ customersRouter.post('/', (req, res) => {
 
 // READ
 customersRouter.get('/:number', (req, res, next) => {
-  Customer.findOne({ phone: req.body.number }, (err, customers) => {
+  Customer.find({ phone: req.params.number }, (err, customers) => {
     if (err) res.status(404).send(err);
-    console.log('getting by phone number');
-    console.log(req.body.number);
-    console.log(req.query.number);
+    console.log('Getting by Phone Number: ' + req.params.number);
     res.json(customers);
   });
 });
@@ -38,26 +36,27 @@ customersRouter.get('/:number', (req, res, next) => {
 customersRouter.get('/', (req, res, next) => {
   Customer.find((err, customers) => {
     if (err) res.status(404).send(err);
-    console.log('getting everything');
+    console.log('Getting All Customers');
+    console.log(req.params);
     res.json(customers);
   });
 });
 
 // UPDATE
 customersRouter.put('/:number', (req, res, next) => {
-  Customer.findOne({ phone: req.body.number }, (err, customer) => {
+  Customer.findOne({ phone: req.params.number }, (err, customer) => {
     if (err) res.status(404).send(err);
     if (customer == undefined) {
-        console.log('GET FAILED: Customer with phone # ' + req.body.number + ' could not be found');
+        console.log('GET FAILED: Customer with phone #' + req.params.number + ' could not be found');
         res.redirect('/');
         return;
     }
 
     // Do not update a field when its matching input is empty ('')
-    isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
+    isEmpty = (field) => { return req.params[field] == '' || req.params[field] == null || req.body[field] == undefined; }
     defaultField = (field) => {
       if (isEmpty(field)) return customer[field];
-      else return req.body[field];
+      else return req.params[field];
     }
 
       console.log("Updating customer with CID: " + customer.cid);
