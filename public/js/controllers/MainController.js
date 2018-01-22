@@ -72,7 +72,6 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
     $scope.selected = idCard;
 
     // TODO: Update call to UI
-
   }
 
   $scope.isSelected = (idCard) => {
@@ -80,39 +79,44 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
   }
 
   let phoneInputReady = (input) => { return input.length == 10; }
+  let getDigits = () => { return phoneInput.val(); }
+  let createContainer = $('.create-container');
+  let hideRegistration = () => {
+    if (!createContainer.hasClass('hidden')) createContainer.addClass('hidden');
+  }
+  let showRegistration = () => {
+    if (createContainer.hasClass('hidden')) createContainer.removeClass('hidden');
+  }
 
   let phoneInput = $('#phoneInput');
-  $(phoneInput).on('input', (e) => {
-        if (!phoneInputReady(phoneInput.val())) {
-          if ($scope.customers.length != 0) {
-            // $('.id-card').removeClass('fadeInRight');
-            $('id-card').toggleClass('fadeOutRight').on(
-              'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
+$(phoneInput).on('input', (e) => {
+      if (!phoneInputReady(getDigits())) {
+
+        if (getDigits().length == 0) showRegistration();
+        else if (getDigits().length == 9 && $scope.customers.length != 0) {
+
+          // Clear ID Cards after fading them out
+          $('id-card').toggleClass('fadeOutRight').on(
+            'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
               $scope.customers.splice(0, $scope.customers.length);
               $scope.$apply();
             });
-          }
-          return;
-        }
+
+        } else hideRegistration();
+
+        return;
+      }
 
       $http.get('http://localhost:27017/customers/' + phoneInput.val())
-      .then((response) => {
+        .then((response) => {
 
-        $scope.customers = response.data.slice();
+          $scope.customers = response.data.slice();
 
-      });
+          if ($scope.customers.length == 0) showRegistration();
+          else hideRegistration();
+
+        });
 
   });
-
-//   $http({
-//     url: "http://localhost:27017/customers/2177783897",
-//     method: "GET",
-//     params: {
-//       phone: 2177783897
-//     }
-//   }).then(function(response) {
-//     $scope.myWelcome = response.data;
-//     console.log($scope.myWelcome);
-// });
 
 }]);
