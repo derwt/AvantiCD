@@ -78,44 +78,46 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
     return $scope.selected === idCard;
   }
 
-  let phoneInputReady = (input) => { return input.length == 10; }
-  let getDigits = () => { return phoneInput.val(); }
-  let createContainer = $('.create-container');
+  let getDigits        = () => { return phoneInput.val(); }
+  let digitsLength     = () => { return getDigits().length; }
+  let phoneInputReady  = () => { return digitsLength() == 10; }
+  let createContainer  = $('.create-container');
   let hideRegistration = () => {
     if (!createContainer.hasClass('hidden')) createContainer.addClass('hidden');
   }
   let showRegistration = () => {
     if (createContainer.hasClass('hidden')) createContainer.removeClass('hidden');
   }
+  let numberOfCustomers = () => { return $scope.customers.length; }
 
   let phoneInput = $('#phoneInput');
-$(phoneInput).on('input', (e) => {
-      if (!phoneInputReady(getDigits())) {
+  $(phoneInput).on('input', (e) => {
+    if (!phoneInputReady(getDigits())) {
 
-        if (getDigits().length == 0) showRegistration();
-        else if (getDigits().length == 9 && $scope.customers.length != 0) {
+      if (digitsLength() == 0) showRegistration();
+      else if (digitsLength() == 9 && numberOfCustomers() != 0) {
 
-          // Clear ID Cards after fading them out
-          $('id-card').toggleClass('fadeOutRight').on(
-            'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
-              $scope.customers.splice(0, $scope.customers.length);
-              $scope.$apply();
-            });
+        // Clear ID Cards after fading them out
+        $('id-card').toggleClass('fadeOutRight').on(
+          'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
+            $scope.customers.splice(0, numberOfCustomers());
+            $scope.$apply();
+          });
 
-        } else hideRegistration();
+      } else hideRegistration();
 
-        return;
-      }
+      return;
+    }
 
-      $http.get('http://localhost:27017/customers/' + phoneInput.val())
-        .then((response) => {
+    $http.get('http://localhost:27017/customers/' + phoneInput.val())
+      .then((response) => {
 
-          $scope.customers = response.data.slice();
+        $scope.customers = response.data.slice();
 
-          if ($scope.customers.length == 0) showRegistration();
-          else hideRegistration();
+        if (numberOfCustomers() == 0) showRegistration();
+        else hideRegistration();
 
-        });
+      });
 
   });
 
