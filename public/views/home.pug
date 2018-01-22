@@ -9,4 +9,4 @@ html
           input#phoneInput.form-control.input-phone(type="number" limit-to="10" placeholder="(123) 456-7890")
       .scrollable
         div(ng-repeat="customer in customers")
-          id-card.id-card-template(info="customer" ng-click="select(customer)" ng-class="{highlighted: isSelected(customer)}")            
+          id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer)" ng-class="{highlighted: isSelected(customer)}")            
