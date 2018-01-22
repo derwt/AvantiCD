@@ -83,7 +83,17 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
 
   let phoneInput = $('#phoneInput');
   $(phoneInput).on('input', (e) => {
-    if (!phoneInputReady(phoneInput.val())) return;
+        if (!phoneInputReady(phoneInput.val())) {
+          if ($scope.customers.length != 0) {
+            // $('.id-card').removeClass('fadeInRight');
+            $('id-card').toggleClass('fadeOutRight').on(
+              'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
+              $scope.customers.splice(0, $scope.customers.length);
+              $scope.$apply();
+            });
+          }
+          return;
+        }
 
       $http.get('http://localhost:27017/customers/' + phoneInput.val())
       .then((response) => {

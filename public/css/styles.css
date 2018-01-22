@@ -6,6 +6,7 @@
 
 .id-card-container .scrollable {
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 3px 0px 2px 2px;
 }
 

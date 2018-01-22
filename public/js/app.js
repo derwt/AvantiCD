@@ -1,4 +1,4 @@
-let app = angular.module('sampleApp', ['ngRoute', 'appRoutes', 'MainController', 'NerdController', 'CustomerService']);
+let app = angular.module('sampleApp', ['ngRoute', 'ngAnimate', 'appRoutes', 'MainController', 'NerdController', 'CustomerService']);
 
 app.directive('idCard', function() {
   return {
