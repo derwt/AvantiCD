@@ -83,10 +83,10 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
   let phoneInputReady  = () => { return digitsLength() == 10; }
   let createContainer  = $('.create-container');
   let hideRegistration = () => {
-    if (!createContainer.hasClass('hidden')) createContainer.addClass('hidden');
+    if (!createContainer.hasClass('fadeOut')) createContainer.addClass('fadeOut');
   }
   let showRegistration = () => {
-    if (createContainer.hasClass('hidden')) createContainer.removeClass('hidden');
+    if (createContainer.hasClass('fadeOut')) createContainer.removeClass('fadeOut');
   }
   let numberOfCustomers = () => { return $scope.customers.length; }
 
