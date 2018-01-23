@@ -9,6 +9,13 @@ html
           input#phoneInput.form-control.input-phone(type="number" limit-to="10" placeholder="(123) 456-7890")
       .scrollable
         .create-container.animated.fadeIn
+          | Hooray &#x1F389 a new customer!
+          .customer-field
+            input#addressInput.form-control(placeholder="123 Cherry St")
+          .customer-field    
+            #citySelect
+              div(ng-repeat="city in cities")
+                button.btn.btn-city(ng-class="city | lowercase") {{ city }}        
           img(src="../img/slice.png")
         div(ng-repeat="customer in customers")
           id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer)" ng-class="{highlighted: isSelected(customer)}")            
