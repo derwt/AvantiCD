@@ -8,19 +8,31 @@ customersRouter = express.Router();
 customersRouter.post('/', (req, res) => {
 
   let customer = new Customer();
-  customer.cid = req.body.cid;
-  customer.phone = req.body.phone;
-  customer.city = req.body.city;
-  customer.address = req.body.address;
-  customer.cross = req.body.cross;
-  customer.note = req.body.note;
-  customer.ordered = req.body.ordered;
 
-  customer.save((err) => {
-    if (err) res.status(404).send(err);
+  // Find largest CID and assign +1 to new customer
+  Customer.find().sort({cid: -1}).limit(1).cursor()
+  .on('data', (doc)=> {
+    customer.cid = doc.cid + 1;
+    customer.phone = req.body.phone;
+    customer.city = req.body.city;
+    customer.address = req.body.address;
+    customer.cross = req.body.cross;
+    customer.note = req.body.note;
+    customer.ordered = 1222222222;//req.body.ordered;
 
-    res.json(customer);
+    customer.validate((err) => {
+      if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);
+      else {
+        customer.save((err) => {
+          if (err) res.status(400).send(err);
+          else {
+            res.json(customer);
+          }
+        });
+      }
+    });
   });
+
 
 });
 
