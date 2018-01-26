@@ -1,6 +1,7 @@
 // MODEL
 const express = require('express');
 const Customer = require('./models/customer');
+const assert = require('assert');
 
 customersRouter = express.Router();
 
@@ -12,17 +13,19 @@ customersRouter.post('/', (req, res) => {
   // Find largest CID and assign +1 to new customer
   Customer.find().sort({cid: -1}).limit(1).cursor()
   .on('data', (doc)=> {
-    customer.cid = doc.cid + 1;
-    customer.phone = req.body.phone;
-    customer.city = req.body.city;
+    customer.cid     = doc.cid + 1;
+    customer.phone   = req.body.phone;
+    customer.city    = req.body.city;
     customer.address = req.body.address;
-    customer.cross = req.body.cross;
-    customer.note = req.body.note;
-    customer.ordered = 1222222222;//req.body.ordered;
+    customer.cross   = req.body.cross;
+    customer.note    = req.body.note;
+    customer.ordered = req.body.ordered;
 
     customer.validate((err) => {
-      if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);
-      else {
+      if (err) {
+        console.log('SAVE UNSUCCESSFUL: ' + err.message);
+        res.status(400).send(err);
+      } else {
         customer.save((err) => {
           if (err) res.status(400).send(err);
           else {

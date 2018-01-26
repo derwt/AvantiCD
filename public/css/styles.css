@@ -25,6 +25,10 @@
   margin-bottom: 10px;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .id-card-container {
   max-width: 500px;
   height: 800px;
