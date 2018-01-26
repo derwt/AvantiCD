@@ -21,7 +21,9 @@
 
 .create-container img {}
 
-.customer-field {}
+.customer-field {
+  margin-bottom: 10px;
+}
 
 .id-card-container {
   max-width: 500px;

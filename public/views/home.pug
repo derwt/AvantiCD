@@ -20,5 +20,9 @@ html
                 '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
                 ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
                 ng-click="selectCity($index, cities);") {{ city }}
+          .customer-field
+            .md-form
+              textarea.md-textarea(ng-focus="focused = true" ng-blur="focused = false")
+              label(ng-class="{ 'active': focused }") Extra Notes
         div(ng-repeat="customer in customers")
           id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
