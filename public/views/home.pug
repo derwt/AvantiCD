@@ -15,7 +15,13 @@ html
           .customer-field    
             #citySelect
               div(ng-repeat="city in cities")
-                button.btn.btn-city(ng-class="city | lowercase") {{ city }}        
-          img(src="../img/slice.png")
+                button.btn.btn-city(
+                ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
+                '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
+                ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
+                ng-click="selectCity($index, cities);") {{ city }}
+            p(style="height:40px; width:80px; box-shadow: 0px 0px 5px black;") {{ newCustomer.city }}
+            div(ng-repeat="cityState in cityButtonStates track by $index")
+              p {{ cityState }}    
         div(ng-repeat="customer in customers")
-          id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer)" ng-class="{highlighted: isSelected(customer)}")            
+          id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            

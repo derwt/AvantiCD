@@ -1,3 +1,15 @@
+.btn-city {
+  transition: background-color .75s ease-out;
+}
+
+.btn-city:hover {
+  color: white!important;
+}
+
+.btn-city-selected {
+  color: white !important;
+}
+
 .create-container {
   position: absolute;
   width: 500px;
@@ -7,12 +19,9 @@
   font-weight: normal;
 }
 
-.create-container img {
-}
+.create-container img {}
 
-.customer-field {
-
-}
+.customer-field {}
 
 .id-card-container {
   max-width: 500px;
@@ -159,57 +168,10 @@ id-card.highlighted {
   font-size: 14pt;
   font-weight: normal;
   border-radius: 10px;
-  padding: .5rem 1.5rem .5rem 1.5rem;
+  padding: .5rem 1.35rem .5rem 1.35rem;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-/* Custom colors for cities */
-.btn-city {
-  background-color: transparent !important;
-}
-
-.bl {
-  border: 2px solid green;
-  outline-color: green !important;
-  color: green !important;
-}
-
-.sc {
-  border: 2px solid #FF8801;
-  color: #FF8801 !important;
-  outline-color: #FF8801 !important;
-}
-
-.sm {
-  border: 2px solid #0199CC;
-  color: #0199CC !important;
-  outline-color: #0199CC !important;
-}
-
-.rws {
-  border: 2px solid #FFBB34;
-  color: #FFBB34 !important;
-  outline-color: #FFBB34 !important;
-}
-
-.rwc {
-  border: 2px solid red;
-  color: red !important;
-  outline-color: red !important;
-}
-
-.fc {
-  border: 2px solid #CC0101;
-  color: #CC0101 !important;
-  outline-color: #CC0101 !important;
-}
-
-.hb {
-  border: 2px solid black;
-  color: black !important;
-  outline-color: black !important;
 }
