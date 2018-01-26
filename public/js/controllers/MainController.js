@@ -1,11 +1,13 @@
-angular.module('MainController', []).controller('MainController', ['$scope', '$http', '$routeParams' ,function($scope, $http, $routeParams) {
+angular.module('MainController', []).controller('MainController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 
   $scope.tagline = 'Let\'s get some pizza ready!';
   $scope.customers = [];
   $scope.newCustomer = {
     phone: "",
     city: "",
-    address: ""
+    address: "",
+    cross: "",
+    note: ""
   };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
@@ -75,5 +77,23 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
       $scope.cityButtonStates[index] = (position == index);
     });
   }
+
+  let getAddress = () => { return $('#addressInput').val(); }
+  let getCross = () => { return $('#crossInput').val(); }
+  let getNote = () => { return $('#noteInput').val(); }
+
+  let prepareCustomer = () => {
+    $scope.newCustomer.phone = getDigits();
+    $scope.newCustomer.address = getAddress();
+    $scope.newCustomer.cross = getCross();
+    $scope.newCustomer.note = getNote();
+    console.log($scope.newCustomer);
+  }
+
+  $scope.createCustomer = () => {
+    prepareCustomer();
+  }
+
+
 
 }]);

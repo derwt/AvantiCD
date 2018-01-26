@@ -10,19 +10,20 @@ html
       .scrollable
         .create-container.animated.fadeIn
           | Hooray &#x1F389 a new customer!
-          .customer-field
-            input#addressInput.form-control(placeholder="123 Cherry St")
-          .customer-field    
-            #citySelect
-              div(ng-repeat="city in cities")
-                button.btn.btn-city(
-                ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
-                '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
-                ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
-                ng-click="selectCity($index, cities);") {{ city }}
-          .customer-field
+          input#addressInput.customer-field.form-control(placeholder="123 Cherry St")   
+          #citySelect.customer-field
+            div(ng-repeat="city in cities")
+              button.btn.btn-city(
+              ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
+              '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
+              ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
+              ng-click="selectCity($index, cities);") {{ city }}
+          .unrequired-notes
+            label Cross Street
+            input#crossInput.form-control(placeholder="321 Peach Lane")
             .md-form
-              textarea.md-textarea(ng-focus="focused = true" ng-blur="focused = false")
+              textarea#noteInput.md-textarea(ng-focus="focused = true" ng-blur="focused = false")
               label(ng-class="{ 'active': focused }") Extra Notes
+          button.btn.red.darken-2.create-button(ng-click="createCustomer()") Create!
         div(ng-repeat="customer in customers")
           id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
