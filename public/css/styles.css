@@ -21,6 +21,13 @@
 
 .create-container img {}
 
+.create-button {
+  border-radius: 10px;
+  font-size: 14pt;
+  font-weight: normal;
+  padding: .5rem 1.35rem .5rem 1.35rem;
+}
+
 .customer-field {
   margin-bottom: 10px;
 }
@@ -142,6 +149,17 @@ id-card.highlighted {
   background-color: rgba(255, 255, 255, 0.92);
 }
 
+.unrequired-notes {
+  margin: 30px 10px 10px 10px;
+  text-align: left;
+}
+
+.unrequired-notes label {
+  margin-left: 18px;
+  font-size: 1rem;
+  color: #5c5c5c;
+}
+
 #phoneInput {
   font-size: 20pt;
   font-weight: normal;
@@ -171,6 +189,15 @@ id-card.highlighted {
   font-weight: normal;
   border-radius: 10px;
   padding: .5rem 1.35rem .5rem 1.35rem;
+}
+
+#crossInput {
+  margin: 0px 10px 10px 10px;
+  padding-left: 10px;
+  border-radius: 2px;
+  color: black;
+  font-size: 18pt;
+  border-radius: 5px;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
