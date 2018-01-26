@@ -16,7 +16,8 @@
     <title-content title="Customer ID" content="info.cid"></title-content>
   </div>
   <div class="id-card-half grey lighten-3">
-    <title-content title="Last Ordered" content="info.ordered * 1000 | date"></title-content>
+    <title-content ng-if="info.ordered != null" title="Last Ordered" content="info.ordered * 1000 | date"></title-content>
+    <title-content ng-if="info.ordered == null" title="Last Ordered" content="'Not Yet! 👨🏽‍🍳'"></title-content>
   </div>
   <div class="id-card-bottom">
     <div class="phone-div">
