@@ -21,13 +21,6 @@
 
 .create-container img {}
 
-.create-button {
-  border-radius: 10px;
-  font-size: 14pt;
-  font-weight: normal;
-  padding: .5rem 1.35rem .5rem 1.35rem;
-}
-
 .customer-field {
   margin-bottom: 10px;
 }
@@ -188,6 +181,13 @@ id-card.highlighted {
   font-size: 14pt;
   font-weight: normal;
   border-radius: 10px;
+  padding: .5rem 1.35rem .5rem 1.35rem;
+}
+
+#createButton {
+  border-radius: 10px;
+  font-size: 14pt;
+  font-weight: normal;
   padding: .5rem 1.35rem .5rem 1.35rem;
 }
 

@@ -87,11 +87,20 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
     $scope.newCustomer.address = getAddress();
     $scope.newCustomer.cross = getCross();
     $scope.newCustomer.note = getNote();
-    console.log($scope.newCustomer);
   }
 
   $scope.createCustomer = () => {
     prepareCustomer();
+
+    $http.post('http://localhost:27017/customers/', $scope.newCustomer)
+      .then((response) => {
+
+
+
+      }, (response) => {
+
+      });
+
   }
 
 
