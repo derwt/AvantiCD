@@ -90,18 +90,26 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
   }
 
   $scope.createCustomer = () => {
-    prepareCustomer();
+  prepareCustomer();
 
-    $http.post('http://localhost:27017/customers/', $scope.newCustomer)
-      .then((response) => {
+  $http.post('http://localhost:27017/customers/', $scope.newCustomer)
+    .then((response) => {
 
+      hideRegistration();
+      // TODO: Update UI with new customer information
+      $http.get('http://localhost:27017/customers/' + phoneInput.val())
+        .then((response) => {
 
+          $scope.customers = response.data.slice();
+        });
 
-      }, (response) => {
+    }, (response) => {
 
-      });
+      console.log('noooo');
 
-  }
+    });
+
+}
 
 
 
