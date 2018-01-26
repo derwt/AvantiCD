@@ -2,7 +2,17 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
 
   $scope.tagline = 'Let\'s get some pizza ready!';
   $scope.customers = [];
+  $scope.newCustomer = {
+    phone: "",
+    city: "",
+    address: ""
+  };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
+  $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
+  $scope.cityButtonStates =[false, false, false, false, false, false, false];
+
+  $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
+  let getCityColorByName = (name) => { return $scope.cities.indexOf(name); }
 
   $scope.select = (idCard) => {
     $scope.selected = idCard;
@@ -50,7 +60,6 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
     $http.get('http://localhost:27017/customers/' + phoneInput.val())
       .then((response) => {
 
-        console.log(response);
         $scope.customers = response.data.slice();
 
         if (numberOfCustomers() == 0) showRegistration();
@@ -60,5 +69,11 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
 
   });
 
+  $scope.selectCity = (position, cityButtons) => {
+    $scope.newCustomer.city = cityButtons[position];
+    angular.forEach(cityButtons, (button, index) => {
+      $scope.cityButtonStates[index] = (position == index);
+    });
+  }
 
 }]);
