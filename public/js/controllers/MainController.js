@@ -12,6 +12,7 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
+  $scope.errors = [];
 
   $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
   let getCityColorByName = (name) => { return $scope.cities.indexOf(name); }
@@ -112,7 +113,10 @@ angular.module('MainController', []).controller('MainController', ['$scope', '$h
 
       }, (response) => {
 
-        console.log(response.data.errors);
+        $scope.errors.splice(0 ,$scope.errors.length);
+        angular.forEach(response.data.errors, (error, index) => {
+          $scope.errors.push(error.message);
+        });
 
       });
 

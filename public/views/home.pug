@@ -27,3 +27,5 @@ html
           button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
         div(ng-repeat="customer in customers")
           id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
+      div(ng-repeat="error in errors track by $index")
+        p {{ error }}
