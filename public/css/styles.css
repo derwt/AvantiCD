@@ -1,9 +1,13 @@
+body {
+  margin: 0;
+}
+
 .btn-city {
   transition: background-color .75s ease-out;
 }
 
 .btn-city:hover {
-  color: white!important;
+  color: white !important;
 }
 
 .btn-city-selected {
@@ -25,9 +29,7 @@
   margin-bottom: 10px;
 }
 
-.customer-info {
-  
-}
+.customer-info {}
 
 .hidden {
   visibility: hidden;
