@@ -1,4 +1,4 @@
-angular.module('MainController', []).controller('MainController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+angular.module('CustomerController', []).controller('CustomerController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 
   $scope.tagline = 'Let\'s get some pizza ready!';
   $scope.customers = [];
