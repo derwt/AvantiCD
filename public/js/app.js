@@ -17,7 +17,7 @@ app.directive('titleContent', function() {
       title: '@title',
       content: '='
     },
-    template: '<div class="text-center"> <h4 class="h4-responsive">{{ title }}</h4> <p class="black-text">{{ content }}</p> </div>',
+    template: '<div class="text-center"> <h4 class="h3-responsive" style="font-weight:">{{ title }}</h4> <p class="black-text h5-responsive" style="font-size:15pt;">{{ content }}</p> </div>',
     link: (scope, elem, attrs) => {}
   };
 });
