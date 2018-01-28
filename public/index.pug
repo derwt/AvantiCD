@@ -20,10 +20,10 @@ html(lang="en")
     script(src="js/services/CustomerService.js")
     script(src="js/appRoutes.js")
     script(src="js/app.js")
-  body(style="margin-top:30px;" ng-app="acid" ng-controller="CustomerController")
-    .container
+  body(ng-app="acid" ng-controller="CustomerController")
+    .container-fluid.container-shifted
       // HEADER
-      nav.navbar.navbar-dark.bg-dark
+      nav.navbar.navbar-dark.bg-dark.navbar-fixed-left
         .navbar-header
           a.navbar-brand(href="/") Node and Angular
         ul.nav.navbar-nav
