@@ -1,6 +1,6 @@
 html
   body
-    .row
+    .row(style="margin-top:60px;")
       .col-md-4
         .id-card-container.z-depth-1-half
           .text-center.phone-input-background.z-depth-1
@@ -26,5 +26,8 @@ html
               button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
             div(ng-repeat="customer in customers")
               id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
-      .customer-info.col-md-8.z-depth-1-half
-        p {{ selected.city }}
+      .col-md-8
+        .z-depth-1-half.map-container
+          iframe#map(frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&origin=Avanti+Pizza,Belmont+CA+USA&destination=Avanti+Pizza,Belmont+CA+USA") allowfullscreen
+        .customer-info.z-depth-1-half
+          p {{ selected.city }}

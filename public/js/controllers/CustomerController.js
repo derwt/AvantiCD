@@ -17,10 +17,22 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
   let getCityColorByName = (name) => { return $scope.cities.indexOf(name); }
 
+  const map = $('#map');
+  const mapTemplate = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&" +
+    "origin=Avanti+Pizza,Belmont+CA+USA&destination=";
+
+  let setMapDestination = (destination) => {
+    angular.forEach(map, (err, index) => {
+      map[index].src = mapTemplate + destination;
+    });
+  }
+
   $scope.select = (idCard) => {
     $scope.selected = idCard;
 
     // TODO: Update call to UI
+    setMapDestination(idCard.address);
+
   }
 
   $scope.isSelected = (idCard) => {
@@ -122,7 +134,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
 
   }
-
 
 
 }]);

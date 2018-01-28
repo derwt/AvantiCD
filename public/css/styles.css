@@ -1,6 +1,5 @@
 body {
   margin-top:30px;
-  height: 100%;
 }
 
 html {
@@ -42,14 +41,17 @@ html {
   margin-bottom: 10px;
 }
 
-.customer-info {}
+.customer-info {
+  height: calc(40% - 16px);
+  margin-top: 16px;
+}
 
 .hidden {
   visibility: hidden;
 }
 
 .id-card-container {
-  height: 800px;
+  min-height: 800px;
   overflow-x: hidden;
 }
 
@@ -147,6 +149,10 @@ id-card.highlighted {
   text-align: center;
 }
 
+.map-container {
+  height: 60%;
+}
+
 .navbar-fixed-left {
   position: fixed;
   left: 0;
@@ -232,7 +238,43 @@ id-card.highlighted {
   border-radius: 5px;
 }
 
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#map-canvas {
+margin: 0;
+padding: 0;
+height: 100%;
+}
+
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.inputErrorsAdvanced {
+  /* NOTE: Check the demo's HTML to see some additional RTL support CSS */
+  /* Setup animations similar to the ng-messages */ }
+  .inputErrorsAdvanced .hint {
+    /* Position the hint */
+    position: absolute;
+    left: 2px;
+    right: auto;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey; }
+  .inputErrorsAdvanced .hint.ng-hide,
+  .inputErrorsAdvanced .hint.ng-enter,
+  .inputErrorsAdvanced .hint.ng-leave.ng-leave-active {
+    bottom: 26px;
+    opacity: 0; }
+  .inputErrorsAdvanced .hint.ng-leave,
+  .inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
+    bottom: 7px;
+    opacity: 1; }
