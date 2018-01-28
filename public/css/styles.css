@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin-top:30px;
 }
 
 .btn-city {
@@ -14,9 +14,17 @@ body {
   color: white !important;
 }
 
+.container-fluid {
+  width: 91%;
+}
+
+.container-shifted {
+  margin-left: 125px;
+}
+
 .create-container {
   position: absolute;
-  width: 500px;
+  width: 100%;
   padding: 75px;
   text-align: center;
   font-size: 18pt;
@@ -36,7 +44,7 @@ body {
 }
 
 .id-card-container {
-  max-width: 500px;
+  /* width: 500px; */
   height: 800px;
   overflow-x: hidden;
 }
@@ -133,6 +141,15 @@ id-card.highlighted {
   width: 100%;
   padding-top: 5px;
   text-align: center;
+}
+
+.navbar-fixed-left {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100px;
+  z-index: 2;
 }
 
 .phone-div p {
