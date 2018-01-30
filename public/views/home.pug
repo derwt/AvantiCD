@@ -30,4 +30,5 @@ html
         .z-depth-1-half.map-container
           iframe#map(frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&origin=Avanti+Pizza,Belmont+CA+USA&destination=Avanti+Pizza,Belmont+CA+USA") allowfullscreen
         .customer-info.z-depth-1-half
-          p {{ selected.city }}
+          .address
+          span.customer-detail(inline-edit="selected.city" inline-edit-on-blur="save" inline-edit-btn-edit="✏️" inline-edit-btn-save="✔️" inline-edit-btn-cancel="❌")
