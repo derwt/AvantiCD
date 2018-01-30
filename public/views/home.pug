@@ -6,6 +6,7 @@ html
           include includes/search.pug
           .scrollable
             include includes/create.pug
+            include includes/edit.pug
             div(ng-repeat="customer in customers")
               id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
       .col-md-8

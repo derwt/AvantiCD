@@ -45,7 +45,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let digitsLength     = () => { return getDigits().length; }
   let phoneInputReady  = () => { return digitsLength() == 10; }
 
-  let createContainer  = $('.container-create');
+  let createContainer  = $('#createContainer');
+  let editContainer = $('#editContainer');
   let hidingRegistration = false;
   let hideRegistration = () => {
     hidingRegistration = true;
@@ -66,7 +67,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $(phoneInput).on('input', (e) => {
     if (!phoneInputReady(getDigits())) {
 
-      if (digitsLength() == 0) showRegistration();
+      if (digitsLength() == 0) ; // TODO: Show something cute about searching for customers
       else if (digitsLength() == 9 && numberOfCustomers() != 0) {
 
         // Clear ID Cards after fading them out

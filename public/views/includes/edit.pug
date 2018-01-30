@@ -1,1 +1,6 @@
-.edit-container.animated.fadeIn
+#editContainer.container-search.animated.fadeIn
+  label(for="addressEdit") Address:&nbsp; 
+    span#addressEdit(inline-edit="selected.address" inline-edit-placeholder="No Address Found" inline-edit-btn-edit="" inline-edit-on-blur="save" inline-edit-on-click="")
+  br
+  label(for="cityEdit") City:&nbsp;
+    span#cityEdit(inline-edit="selected.city" inline-edit-placeholder="No City Found" inline-edit-btn-edit="" inline-edit-on-blur="save" inline-edit-on-click="")
