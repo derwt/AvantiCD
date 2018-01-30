@@ -18,13 +18,16 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getCityColorByName = (name) => { return $scope.cities.indexOf(name); }
 
   const map = $('#map');
+  const Avanti = 'Avanti+Pizza,Belmont+CA+USA';
   const mapTemplate = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&" +
-    "origin=Avanti+Pizza,Belmont+CA+USA&destination=";
+    "origin="+Avanti+"&destination=";
 
   let setMapDestination = (destination) => {
-    angular.forEach(map, (err, index) => {
-      map[index].src = mapTemplate + destination;
-    });
+      map[0].src = mapTemplate + destination;
+  }
+
+  let getMapDestination = () => {
+    if (map[0] !== undefined) return (map[0].src.match(/(?<=destination=)(.*)/)[0]);
   }
 
   $scope.select = (idCard) => {
@@ -34,7 +37,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     setMapDestination(idCard.address);
 
   }
-
   $scope.isSelected = (idCard) => {
     return $scope.selected === idCard;
   }
@@ -82,9 +84,11 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     $http.get('http://localhost:27017/customers/' + phoneInput.val())
       .then((response) => {
 
+        if (getMapDestination() != Avanti) setMapDestination(Avanti);
         $scope.customers = response.data.slice();
 
         if (numberOfCustomers() == 0) showRegistration();
+        else if (numberOfCustomers() == 1) $scope.select($scope.customers[0]);
         else hideRegistration();
 
       });
