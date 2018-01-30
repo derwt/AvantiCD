@@ -45,14 +45,18 @@ html {
   margin-bottom: 10px;
 }
 
-.customer-info {
-  height: calc(40% - 16px);
+.history {
+  height: calc(25% - 16px);
   margin-top: 16px;
 }
 
-.customer-info .address {
+.customer-info .history-header {
   height: 50px;
   background-color: #1E8BC3;
+  padding: 5px 10px;
+  font-weight: 400;
+  color: white;
+  font-size: 20pt;
 }
 
 .hidden {
@@ -159,7 +163,8 @@ id-card.highlighted {
 }
 
 .map-container {
-  height: 60%;
+  height: 80%;
+  margin-bottom: 10px;
 }
 
 .navbar-fixed-left {
