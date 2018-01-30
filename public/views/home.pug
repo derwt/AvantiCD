@@ -3,18 +3,11 @@ html
     .row(style="margin-top:60px;")
       .col-md-4
         .id-card-container.z-depth-1-half
-          .text-center.phone-input-background.z-depth-1
-            .phone-input-container
-              input#phoneInput.form-control.input-phone(type="number" limit-to="10" placeholder="(123) 456-7890")
+          include includes/search.pug
           .scrollable
             include includes/create.pug
             div(ng-repeat="customer in customers")
               id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
       .col-md-8
-        .z-depth-1-half.map-container
-          iframe#map(frameborder="0" src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&origin=Avanti+Pizza,Belmont+CA+USA&destination=Avanti+Pizza,Belmont+CA+USA") allowfullscreen
-        .customer-info.z-depth-1-half
-          .history-header History
-          div(style="background-color:#f2f2f2; width:300px;height:100px;padding:10px 5px;text-align:center;border-radius:5px;")
-            label(for="addressDetail" style="font-size:18pt;margin-bottom:0px") Address
-            span#addressDetail(inline-edit="selected.address"  inline-edit-callback="myUpdateHandler(newValue)"  inline-edit-placeholder="Type your value here"  inline-edit-btn-edit=""  inline-edit-on-blur="save" inline-edit-on-click)
+        include includes/map.pug
+        include includes/history.pug
