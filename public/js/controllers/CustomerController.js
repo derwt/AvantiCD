@@ -45,7 +45,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let digitsLength     = () => { return getDigits().length; }
   let phoneInputReady  = () => { return digitsLength() == 10; }
 
-  let createContainer  = $('.create-container');
+  let createContainer  = $('.container-create');
   let hidingRegistration = false;
   let hideRegistration = () => {
     hidingRegistration = true;

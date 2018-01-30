@@ -26,7 +26,7 @@ html {
   margin-left: 125px;
 }
 
-.create-container {
+.container-create {
   position: absolute;
   width: 100%;
   padding: 75px;
@@ -35,7 +35,7 @@ html {
   font-weight: normal;
 }
 
-.create-container img {}
+.container-create img {}
 
 .customer-detail {
   font-size: 16pt;
@@ -63,12 +63,12 @@ html {
   visibility: hidden;
 }
 
-.id-card-container {
+.container-id-card {
   min-height: 800px;
   overflow-x: hidden;
 }
 
-.id-card-container .scrollable {
+.container-id-card .scrollable {
   overflow-y: auto;
   overflow-x: hidden;
   padding: 3px 0px 3px 3px;
@@ -162,7 +162,7 @@ id-card.highlighted {
   text-align: center;
 }
 
-.map-container {
+.container-map {
   height: 80%;
   margin-bottom: 10px;
 }
@@ -195,7 +195,7 @@ id-card.highlighted {
   padding-right: 10px;
 }
 
-.phone-input-container {
+.container-phone-input {
   display: inline-block;
   padding: 10px 0px 10px 0px;
 }
