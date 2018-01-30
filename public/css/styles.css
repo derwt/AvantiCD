@@ -37,6 +37,10 @@ html {
 
 .create-container img {}
 
+.customer-detail {
+  font-size: 16pt;
+}
+
 .customer-field {
   margin-bottom: 10px;
 }
@@ -44,6 +48,11 @@ html {
 .customer-info {
   height: calc(40% - 16px);
   margin-top: 16px;
+}
+
+.customer-info .address {
+  height: 50px;
+  background-color: #1E8BC3;
 }
 
 .hidden {
@@ -160,6 +169,19 @@ id-card.highlighted {
   height: 100%;
   width: 100px;
   z-index: 2;
+}
+
+.ng-inline-edit__input {
+  border-bottom: 1px dashed #333;
+}
+
+.ng-inline-edit--error .ng-inline-edit__input {
+  border-color: #f00;
+}
+
+.ng-inline-edit__button {
+  color: #00f;
+  margin-left: 5px;
 }
 
 .phone-div p {
