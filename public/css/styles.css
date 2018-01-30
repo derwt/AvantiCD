@@ -26,16 +26,18 @@ html {
   margin-left: 125px;
 }
 
-.container-create {
-  position: absolute;
+.container-search {
   width: 100%;
-  padding: 75px;
+  padding: 75px 75px 50px 75px;
   text-align: center;
   font-size: 18pt;
   font-weight: normal;
 }
 
-.container-create img {}
+.container-search label {
+  display: inline-flex;
+  font-size: 24pt;
+}
 
 .customer-detail {
   font-size: 16pt;
@@ -61,6 +63,7 @@ html {
 
 .hidden {
   visibility: hidden;
+  display: none;
 }
 
 .container-id-card {
