@@ -9,6 +9,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     cross: "",
     note: ""
   };
+  $scope.editingCustomer = {
+    address: "Hello"
+  };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
@@ -34,6 +37,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
     // TODO: Update call to UI
     setMapDestination(idCard.address);
+    $scope.editingCustomer = Object.assign({}, idCard); // Copy customer into editingCustomer
 
   }
   $scope.isSelected = (idCard) => {
@@ -140,7 +144,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.editField = (field) => {
-    
+
   }
 
 }]);
