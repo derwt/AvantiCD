@@ -25,7 +25,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let setMapDestination = (destination) => {
       map[0].src = mapTemplate + destination;
   }
-
   let getMapDestination = () => {
     if (map[0] !== undefined) return (map[0].src.match(/destination=(.*)/)[1]);
   }
@@ -140,5 +139,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   }
 
+  $scope.editField = (field) => {
+    
+  }
 
 }]);

@@ -8,7 +8,7 @@
     "animate.css": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "angular-animate": "latest"
-
+    "angular-animate": "latest",
+    "angular-messages": "latest"
   }
 }
