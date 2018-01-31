@@ -1,6 +1,8 @@
 #editContainer.container-search.animated.fadeIn
-  label(for="addressEdit") Address:&nbsp; 
-    span#addressEdit(inline-edit="selected.address" inline-edit-placeholder="No Address Found" inline-edit-btn-edit="" inline-edit-on-blur="save" inline-edit-on-click="")
-  br
-  label(for="cityEdit") City:&nbsp;
-    span#cityEdit(inline-edit="selected.city" inline-edit-placeholder="No City Found" inline-edit-btn-edit="" inline-edit-on-blur="save" inline-edit-on-click="")
+  form(name="editForm")
+    //- edit-input(label="Address" placeholder="123 Cherry St" field="editingCustomer.address")
+    md-input-container.md-block
+        label Address
+        input(name="address" ng-model="editingCustomer.address" required md-no-asterisk )
+        div(ng-messages="editForm.address.$error")
+          div(ng-message="required") Please enter a value for this field.

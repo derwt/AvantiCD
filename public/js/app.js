@@ -1,4 +1,4 @@
-let app = angular.module('acid', ['ngRoute', 'ngAnimate', 'appRoutes', 'angularInlineEdit', 'ngMessages','CustomerController', 'NerdController', 'CustomerService']);
+let app = angular.module('acid', ['ngRoute', 'ngMessages', 'ngMaterial', 'ngAria', 'ngAnimate', 'appRoutes', 'CustomerController', 'NerdController', 'CustomerService']);
 
 app.directive('idCard', function() {
   return {
@@ -7,6 +7,18 @@ app.directive('idCard', function() {
       info: '='
     },
     templateUrl: 'js/directives/id-card.html'
+  };
+});
+
+app.directive('editInput', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      label: '@label',
+      placeholder: '@placeholder',
+      field: '='
+    },
+    templateUrl: 'js/directives/edit-input.html'
   };
 });
 
