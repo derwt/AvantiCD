@@ -14,14 +14,17 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
 
-  // md-chips settings
-  const self = this;
-  self.removable = true;
-  self.readonly = false;
   let semicolon = 186;
   let comma = 188;
   let enter = 13;
-  self.keys = [enter, comma, semicolon];
+
+  // md-chips settings
+  const self = this;
+  $scope.chips = {
+    readonly: false,
+    removable: true,
+    keys: [enter, comma, semicolon]
+  };
 
   $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
   $scope.getCityIndexByName = (name) => { return $scope.cities.indexOf(name); }
@@ -67,33 +70,51 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let createContainer  = $('#createContainer');
   let editContainer = $('#editContainer');
 
-  let hidingSearchContainer = false;
-  let hidingRegistration = false;
-  let hidingEditContainer = false;
+  let hidingSearchContainer, hidingRegistration, hidingEditContainer = false;
+  let currentContainer, currentHiding = null;
+  
+  let setCurrent = (container, hiding) => {
+    currentContainer = container;
+    currentHiding = hiding;
+  }
 
-  let showContainer = (container, hiding) => {
+  function showContainer(container, hiding) {
+
     hiding = false;
     hidingSearchContainer = true;
-    if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').on(
-      'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
+    setCurrent(container, hiding);
+    container.removeClass('fadeOutRight');
+    if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').one(
+      'animationend', (error) => {
         if (hidingSearchContainer) searchContainer.addClass('hidden');
-        if (container.hasClass('hidden')) container.removeClass('hidden');
-        if (container.hasClass('fadeOutLeft')) container.removeClass('fadeOutLeft');
     });
-  }
-  
-  let hideContainer = (container, hiding) => {
-    hiding = true;
-    if (!container.hasClass('fadeOutLeft')) container.addClass('fadeOutLeft').on(
-      'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
-        if (hiding) container.addClass('hidden');
-        hidingSearchContainer = false;
-        if (searchContainer.hasClass('hidden')) searchContainer.removeClass('hidden');
-        if (searchContainer.hasClass('fadeOutLeft')) searchContainer.removeClass('fadeOutLeft');
-        if (!searchContainer.hasClass('fadeInLeft')) searchContainer.addClass('fadeInLeft');
-    });
+    setTimeout(() => {
+      if (container.hasClass('hidden')) container.removeClass('hidden');
+      if (container.hasClass('fadeOutLeft')) container.removeClass('fadeOutLeft');
+    }, 800);
+
   }
 
+  function hideContainer(container, hiding) {
+
+    hiding = true;
+    setCurrent(null, hiding);
+    hidingSearchContainer = false;
+    if (searchContainer.hasClass('fadeOutRight')) searchContainer.removeClass('fadeOutRight');
+    if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
+      'animationend', (error) => {
+        if (hiding) container.addClass('hidden');
+  });
+    setTimeout(() => {
+      if (searchContainer.hasClass('hidden')) searchContainer.removeClass('hidden');
+      if (searchContainer.hasClass('fadeOutLeft')) searchContainer.removeClass('fadeOutLeft');
+      if (!searchContainer.hasClass('fadeInLeft')) searchContainer.addClass('fadeInLeft');
+    }, 800);
+  }
+
+  $scope.hideContainer = function() {
+    hideContainer(currentContainer, currentHiding);
+  }
   // showContainer(createContainer, hidingRegistration);
 
   let numberOfCustomers = () => { return $scope.customers.length; }
@@ -102,7 +123,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $(searchInput).on('input', (e) => {
     if (!searchInputReady(getSearchValue())) {
 
-      if (digitsLength() == 0) ; // TODO: Show something cute about searching for customers
+      if (digitsLength() == 0) return; // TODO: Show something cute about searching for customers
       else if (digitsLength() == 9 && numberOfCustomers() != 0) {
 
         // Clear ID Cards after fading them out
@@ -127,8 +148,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
         if (numberOfCustomers() == 0) showContainer(createContainer, hidingRegistration);
         else if (numberOfCustomers() == 1) $scope.select($scope.customers[0]);
-        else hideContainer(createContainer, hidingRegistration);
-
+        else {
+          hideContainer(createContainer, hidingRegistration);
+        }
       });
 
   });
