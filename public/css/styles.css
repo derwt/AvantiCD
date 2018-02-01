@@ -25,7 +25,7 @@ form .errors {
 }
 
 md-chips * span {
-  font-size: 18pt;
+  font-size: 16pt;
   color: black;
 }
 
@@ -49,6 +49,7 @@ md-chips * span {
   width: 100%;
   padding: 30px 50px;
   font-weight: normal;
+  position: relative;
 }
 
 .container-search .header {
@@ -63,6 +64,12 @@ md-chips * span {
 
 .container-search md-input-container {
   margin-bottom: 10px;
+}
+
+.button-back {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 
 .customer-detail {
@@ -289,6 +296,8 @@ id-card.highlighted {
 }
 
 #crossInput {}
+
+#editContainer {}
 
 #map {
   width: 100%;
