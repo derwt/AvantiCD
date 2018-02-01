@@ -35,8 +35,7 @@ var customerSchema = new Schema({
   },
   address: {
     type: String,
-    match: [/(^\d+\s[a-zA-Z]+\s[a-zA-Z]+$)/, 'Input address does not pass regex'],
-    required: [true, 'Customer address required']
+    match: [/(^\d+\s[a-zA-Z]+\s[a-zA-Z]+$)/, 'Input address does not pass regex']
   },
   cross:   String,
   note:    String,
