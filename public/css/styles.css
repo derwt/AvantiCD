@@ -1,9 +1,15 @@
 body {
-  margin-top:30px;
+  margin-top: 30px;
 }
 
 html {
   height: 100%;
+}
+
+form .errors {
+  font-size: 12px;
+  color: #dd2c00;
+  margin-top: 5px;
 }
 
 .btn-city {
@@ -18,6 +24,19 @@ html {
   color: white !important;
 }
 
+md-chips * span {
+  font-size: 18pt;
+  color: black;
+}
+
+/* md-chips * md-chip {
+  background-color: #D2D7D3;
+}
+
+.chips-phone * md-icon {
+  color: white;
+} */
+
 .container-fluid {
   width: 93%;
 }
@@ -29,14 +48,17 @@ html {
 .container-search {
   width: 100%;
   padding: 75px 75px 50px 75px;
-  text-align: center;
-  font-size: 18pt;
+  /* text-align: center; */
+  /* font-size: 18pt; */
   font-weight: normal;
 }
 
 .container-search label {
-  display: inline-flex;
-  font-size: 24pt;
+  /* font-size: 24pt; */
+}
+
+.container-search label span {
+  font-size: 18pt;
 }
 
 .customer-detail {
@@ -45,6 +67,17 @@ html {
 
 .customer-field {
   margin-bottom: 10px;
+}
+
+.edit-input {}
+
+.edit-input input {
+  margin: 10px;
+  padding-left: 10px;
+  border-radius: 2px;
+  color: black !important;
+  font-size: 18pt;
+  border-radius: 5px;
 }
 
 .history {
@@ -211,8 +244,8 @@ id-card.highlighted {
 }
 
 .unrequired-notes {
-  margin: 30px 10px 10px 10px;
-  text-align: left;
+  /* margin: 30px 10px 10px 10px; */
+  /* text-align: left; */
 }
 
 .unrequired-notes label {
@@ -221,21 +254,12 @@ id-card.highlighted {
   color: #5c5c5c;
 }
 
-#phoneInput {
-  font-size: 20pt;
-  font-weight: normal;
-  color: black;
-  text-align: center;
-  width: 250px;
-}
-
 #addressInput {
-  margin: 10px;
-  padding-left: 10px;
-  border-radius: 2px;
+  /* margin: 10px; */
+  /* padding-left: 10px; */
   color: black;
-  font-size: 18pt;
-  border-radius: 5px;
+  /* font-size: 18pt; */
+  /* border-radius: 5px; */
 }
 
 #citySelect {
@@ -260,12 +284,6 @@ id-card.highlighted {
 }
 
 #crossInput {
-  margin: 0px 10px 10px 10px;
-  padding-left: 10px;
-  border-radius: 2px;
-  color: black;
-  font-size: 18pt;
-  border-radius: 5px;
 }
 
 #map {
@@ -274,9 +292,21 @@ id-card.highlighted {
 }
 
 #map-canvas {
-margin: 0;
-padding: 0;
-height: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#phoneInput {
+
+}
+
+#searchInput {
+  font-size: 20pt;
+  font-weight: normal;
+  color: black;
+  text-align: center;
+  width: 250px;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
@@ -286,25 +316,29 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .inputErrorsAdvanced {
   /* NOTE: Check the demo's HTML to see some additional RTL support CSS */
-  /* Setup animations similar to the ng-messages */ }
-  .inputErrorsAdvanced .hint {
-    /* Position the hint */
-    position: absolute;
-    left: 2px;
-    right: auto;
-    bottom: 7px;
-    /* Copy styles from ng-messages */
-    font-size: 12px;
-    line-height: 14px;
-    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-    /* Set our own color */
-    color: grey; }
-  .inputErrorsAdvanced .hint.ng-hide,
-  .inputErrorsAdvanced .hint.ng-enter,
-  .inputErrorsAdvanced .hint.ng-leave.ng-leave-active {
-    bottom: 26px;
-    opacity: 0; }
-  .inputErrorsAdvanced .hint.ng-leave,
-  .inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
-    bottom: 7px;
-    opacity: 1; }
+  /* Setup animations similar to the ng-messages */
+}
+
+.inputErrorsAdvanced .hint {
+  /* Position the hint */
+  position: absolute;
+  left: 2px;
+  right: auto;
+  bottom: 7px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 14px;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  /* Set our own color */
+  color: grey;
+}
+
+.inputErrorsAdvanced .hint.ng-hide, .inputErrorsAdvanced .hint.ng-enter, .inputErrorsAdvanced .hint.ng-leave.ng-leave-active {
+  bottom: 26px;
+  opacity: 0;
+}
+
+.inputErrorsAdvanced .hint.ng-leave, .inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
+  bottom: 7px;
+  opacity: 1;
+}
