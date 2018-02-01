@@ -30,4 +30,5 @@
       textarea#noteInput(ng-model="newCustomer.note" md-maxlength="150" rows="3" md-select-on-focus="")
     .text-center
       button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
-  button.btn.black(ng-click="hideContainer()") Hide!
+  md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
+    i.material-icons arrow_back

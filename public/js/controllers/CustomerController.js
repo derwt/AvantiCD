@@ -72,7 +72,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   let hidingSearchContainer, hidingRegistration, hidingEditContainer = false;
   let currentContainer, currentHiding = null;
-  
+
   let setCurrent = (container, hiding) => {
     currentContainer = container;
     currentHiding = hiding;
@@ -178,24 +178,24 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
     prepareCustomer();
     console.log($scope.newCustomer);
-    // $http.post('http://localhost:27017/customers/', $scope.newCustomer)
-    //   .then((response) => {
-    //
-    //     hideContainer(createContainer, hidingRegistration);
-    //     // TODO: Update UI with new customer information
-    //     $http.get('http://localhost:27017/customers/' + searchInput.val())
-    //       .then((response) => {
-    //         $scope.customers = response.data.slice();
-    //       });
-    //
-    //   }, (response) => {
-    //
-    //     $scope.errors.splice(0 ,$scope.errors.length);
-    //     angular.forEach(response.data.errors, (error, index) => {
-    //       $scope.errors.push(error.message);
-    //     });
-    //
-    //   });
+    $http.post('http://localhost:27017/customers/', $scope.newCustomer)
+      .then((response) => {
+
+        hideContainer(createContainer, hidingRegistration);
+        // TODO: Update UI with new customer information
+        $http.get('http://localhost:27017/customers/' + searchInput.val())
+          .then((response) => {
+            $scope.customers = response.data.slice();
+          });
+
+      }, (response) => {
+
+        $scope.errors.splice(0 ,$scope.errors.length);
+        angular.forEach(response.data.errors, (error, index) => {
+          $scope.errors.push(error.message);
+        });
+
+      });
 
 
   }
