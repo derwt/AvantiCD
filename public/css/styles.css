@@ -1,3 +1,7 @@
+:root {
+  --history-accent-color: #1E8BC3;
+}
+
 body {
   margin-top: 30px;
 }
@@ -72,6 +76,10 @@ md-chips * span {
   top: 10px;
 }
 
+.button-back i {
+  color: var(--history-accent-color);
+}
+
 .customer-detail {
   font-size: 16pt;
 }
@@ -98,7 +106,7 @@ md-chips * span {
 
 .customer-info .history-header {
   height: 50px;
-  background-color: #1E8BC3;
+  background-color: var(--history-accent-color);
   padding: 5px 10px;
   font-weight: 400;
   color: white;
@@ -139,7 +147,7 @@ md-chips * span {
 }
 
 id-card.highlighted {
-  outline: 3px solid #1E8BC3;
+  outline: 3px solid var(--history-accent-color);
 }
 
 .id-card img {
