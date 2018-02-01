@@ -4,9 +4,9 @@ html
       .col-md-4
         .container-id-card.z-depth-1-half
           include includes/search.pug
+          include includes/create.pug
+          //- include includes/edit.pug
           .scrollable
-            include includes/create.pug
-            include includes/edit.pug
             div(ng-repeat="customer in customers")
               id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
       .col-md-8
