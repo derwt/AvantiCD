@@ -1,8 +1,24 @@
-#editContainer.container-search.animated.fadeIn
-  form(name="editForm")
-    //- edit-input(label="Address" placeholder="123 Cherry St" field="editingCustomer.address")
-    md-input-container.md-block
+#editContainer.container-search.animated.fadeIn(style="text-align:left;")
+  div(ng-controller="CustomerController as ctrl")
+    form(name="editForm")
+      md-chips(ng-model="selected.phone" name="phoneNumbers" 
+      readonly="ctrl.readonly" md-removable="ctrl.removable" 
+      md-max-chips="3" md-transform-chip="validateChip($chip, 'phone')"
+      md-separator-keys="ctrl.keys" placeholder="Add a phone number...") 
+      .errors(ng-messages="editForm.phoneNumbers.$error")
+        div(ng-message="md-max-chips") Maximum number of phone numbers reached.
+        div(ng-show="selected.phone.length === 0") Customer must have at least one phone number.
+      md-input-container.md-block
         label Address
-        input(name="address" ng-model="editingCustomer.address" required md-no-asterisk )
-        div(ng-messages="editForm.address.$error")
+        input(name="address" ng-model="selected.address" 
+        ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s[a-zA-Z]+)$/" required md-no-asterisk)
+        .errors(ng-messages="editForm.address.$error")
           div(ng-message="required") Please enter a value for this field.
+          div(ng-message="pattern") Please enter a valid Address.
+      #citySelect.customer-field
+        div(ng-repeat="city in cities")
+          button.btn.btn-city(
+          ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
+          '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
+          ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
+          ng-click="selectCity($index, cities);") {{ city }}
