@@ -2,13 +2,14 @@ html
   body
     .row(style="margin-top:60px;")
       .col-md-4
-        .container-id-card.z-depth-1-half
-          include includes/search.pug
+        div.z-depth-1-half(style="min-height:800px;overflow:hidden;")
           include includes/create.pug
-          //- include includes/edit.pug
-          .scrollable
-            div(ng-repeat="customer in customers")
-              id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
+          include includes/edit.pug
+          .container-id-card.animated#searchContainer
+            include includes/search.pug
+            .scrollable
+              div(ng-repeat="customer in customers")
+                id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
       .col-md-8
         include includes/map.pug
         include includes/history.pug
