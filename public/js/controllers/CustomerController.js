@@ -9,16 +9,22 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     cross: "",
     note: ""
   };
-  $scope.editingCustomer = {
-    address: "Hello"
-  };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
 
+  // md-chips settings
+  const self = this;
+  self.removable = true;
+  self.readonly = false;
+  let semicolon = 186;
+  let comma = 188;
+  let enter = 13;
+  self.keys = [enter, comma, semicolon];
+
   $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
-  let getCityColorByName = (name) => { return $scope.cities.indexOf(name); }
+  $scope.getCityIndexByName = (name) => { return $scope.cities.indexOf(name); }
 
   const map = $('#map');
   const Avanti = 'Avanti+Pizza,Belmont+CA+USA';
@@ -33,20 +39,28 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.select = (idCard) => {
-    $scope.selected = idCard;
+  $scope.selected = idCard;
 
     // TODO: Update call to UI
     setMapDestination(idCard.address);
-    $scope.editingCustomer = Object.assign({}, idCard); // Copy customer into editingCustomer
 
   }
+
   $scope.isSelected = (idCard) => {
     return $scope.selected === idCard;
   }
 
-  let getDigits        = () => { return phoneInput.val(); }
-  let digitsLength     = () => { return getDigits().length; }
-  let phoneInputReady  = () => { return digitsLength() == 10; }
+  $scope.validateChip = ($chip, type) => {
+    switch (type) {
+      case 'phone':
+        if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
+        break;
+    }
+  }
+
+  let getSearchValue        = () => { return searchInput.val(); }
+  let digitsLength     = () => { return getSearchValue().length; }
+  let searchInputReady  = () => { return digitsLength() == 10; }
 
   let createContainer  = $('#createContainer');
   let editContainer = $('#editContainer');
@@ -66,9 +80,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   let numberOfCustomers = () => { return $scope.customers.length; }
 
-  let phoneInput = $('#phoneInput');
-  $(phoneInput).on('input', (e) => {
-    if (!phoneInputReady(getDigits())) {
+  let searchInput = $('#searchInput');
+  $(searchInput).on('input', (e) => {
+    if (!searchInputReady(getSearchValue())) {
 
       if (digitsLength() == 0) ; // TODO: Show something cute about searching for customers
       else if (digitsLength() == 9 && numberOfCustomers() != 0) {
@@ -85,7 +99,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
       return;
     }
 
-    $http.get('http://localhost:27017/customers/' + phoneInput.val())
+    $http.get('http://localhost:27017/customers/' + searchInput.val())
       .then((response) => {
 
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
@@ -106,12 +120,13 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     });
   }
 
+  let getPhoneNumbers = () => { return $('#phoneInput').val(); }
   let getAddress = () => { return $('#addressInput').val(); }
   let getCross = () => { return $('#crossInput').val(); }
   let getNote = () => { return $('#noteInput').val(); }
 
   let prepareCustomer = () => {
-    $scope.newCustomer.phone = getDigits();
+    $scope.newCustomer.phone = getPhoneNumbers();
     $scope.newCustomer.address = getAddress();
     $scope.newCustomer.cross = getCross();
     $scope.newCustomer.note = getNote();
@@ -120,25 +135,25 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.createCustomer = () => {
 
     prepareCustomer();
-
-    $http.post('http://localhost:27017/customers/', $scope.newCustomer)
-      .then((response) => {
-
-        hideRegistration();
-        // TODO: Update UI with new customer information
-        $http.get('http://localhost:27017/customers/' + phoneInput.val())
-          .then((response) => {
-            $scope.customers = response.data.slice();
-          });
-
-      }, (response) => {
-
-        $scope.errors.splice(0 ,$scope.errors.length);
-        angular.forEach(response.data.errors, (error, index) => {
-          $scope.errors.push(error.message);
-        });
-
-      });
+    console.log($scope.newCustomer);
+    // $http.post('http://localhost:27017/customers/', $scope.newCustomer)
+    //   .then((response) => {
+    //
+    //     hideRegistration();
+    //     // TODO: Update UI with new customer information
+    //     $http.get('http://localhost:27017/customers/' + searchInput.val())
+    //       .then((response) => {
+    //         $scope.customers = response.data.slice();
+    //       });
+    //
+    //   }, (response) => {
+    //
+    //     $scope.errors.splice(0 ,$scope.errors.length);
+    //     angular.forEach(response.data.errors, (error, index) => {
+    //       $scope.errors.push(error.message);
+    //     });
+    //
+    //   });
 
 
   }
