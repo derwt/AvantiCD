@@ -1,11 +1,11 @@
 #createContainer.container-search.animated.fadeInRight.hidden
-  div(style="font-size:18pt;text-align:center;") Hooray 🎉 a new customer!
+  .header
+    | Hooray 🎉 a new customer!
   form(name="createForm")
     md-input-container.md-block
       label Phone Number
       input#phoneInput(name="phone" ng-model="newCustomer.phone" 
-      ng-pattern="/^[0-9]{10}$/" 
-      required md-no-asterisk)
+      ng-pattern="/^[0-9]{10}$/" required md-no-asterisk)
       .errors(ng-messages="createForm.phone.$error")
         div(ng-message="required") Please enter a value for this field.
         div(ng-message="pattern") ########## - Please enter a valid phone number.
@@ -24,8 +24,10 @@
         ng-click="selectCity($index, cities);") {{ city }}
     md-input-container.md-block
       label Cross Street
-      input#crossInput(name="cross" ng-model="selected.cross")
+      input#crossInput(name="cross" ng-model="newCustomer.cross")
     md-input-container.md-block
       label Customer Notes
       textarea#noteInput(ng-model="newCustomer.note" md-maxlength="150" rows="3" md-select-on-focus="")
-    button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
+    .text-center
+      button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
+  button.btn.black(ng-click="hideContainer()") Hide!
