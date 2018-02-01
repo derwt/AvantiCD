@@ -47,18 +47,22 @@ md-chips * span {
 
 .container-search {
   width: 100%;
-  padding: 75px 75px 50px 75px;
-  /* text-align: center; */
-  /* font-size: 18pt; */
+  padding: 30px 50px;
   font-weight: normal;
 }
 
-.container-search label {
-  /* font-size: 24pt; */
+.container-search .header {
+  font-size: 18pt;
+  text-align: center;
+  margin-bottom: 35px;
 }
 
 .container-search label span {
   font-size: 18pt;
+}
+
+.container-search md-input-container {
+  margin-bottom: 10px;
 }
 
 .customer-detail {
@@ -267,6 +271,7 @@ id-card.highlighted {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 #citySelect button {
@@ -283,8 +288,7 @@ id-card.highlighted {
   padding: .5rem 1.35rem .5rem 1.35rem;
 }
 
-#crossInput {
-}
+#crossInput {}
 
 #map {
   width: 100%;
@@ -297,9 +301,7 @@ id-card.highlighted {
   height: 100%;
 }
 
-#phoneInput {
-
-}
+#phoneInput {}
 
 #searchInput {
   font-size: 20pt;
