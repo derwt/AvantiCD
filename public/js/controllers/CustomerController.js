@@ -39,10 +39,11 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.select = (idCard) => {
-  $scope.selected = idCard;
+    $scope.selected = idCard;
 
     // TODO: Update call to UI
     setMapDestination(idCard.address);
+    showContainer(editContainer, hidingEditContainer);
 
   }
 
@@ -62,21 +63,38 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let digitsLength     = () => { return getSearchValue().length; }
   let searchInputReady  = () => { return digitsLength() == 10; }
 
+  let searchContainer = $('#searchContainer');
   let createContainer  = $('#createContainer');
   let editContainer = $('#editContainer');
+
+  let hidingSearchContainer = false;
   let hidingRegistration = false;
-  let hideRegistration = () => {
-    hidingRegistration = true;
-    if (!createContainer.hasClass('fadeOut')) createContainer.addClass('fadeOut').on(
+  let hidingEditContainer = false;
+
+  let showContainer = (container, hiding) => {
+    hiding = false;
+    hidingSearchContainer = true;
+    if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').on(
       'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
-        if (hidingRegistration) createContainer.addClass('hidden');
+        if (hidingSearchContainer) searchContainer.addClass('hidden');
+        if (container.hasClass('hidden')) container.removeClass('hidden');
+        if (container.hasClass('fadeOutLeft')) container.removeClass('fadeOutLeft');
     });
   }
-  let showRegistration = () => {
-    hidingRegistration = false;
-    if (createContainer.hasClass('hidden')) createContainer.removeClass('hidden');
-    if (createContainer.hasClass('fadeOut')) createContainer.removeClass('fadeOut');
+  
+  let hideContainer = (container, hiding) => {
+    hiding = true;
+    if (!container.hasClass('fadeOutLeft')) container.addClass('fadeOutLeft').on(
+      'animationend webkitAnimationEnd MSAnimationEnd oAnimationEnd', (error) => {
+        if (hiding) container.addClass('hidden');
+        hidingSearchContainer = false;
+        if (searchContainer.hasClass('hidden')) searchContainer.removeClass('hidden');
+        if (searchContainer.hasClass('fadeOutLeft')) searchContainer.removeClass('fadeOutLeft');
+        if (!searchContainer.hasClass('fadeInLeft')) searchContainer.addClass('fadeInLeft');
+    });
   }
+
+  // showContainer(createContainer, hidingRegistration);
 
   let numberOfCustomers = () => { return $scope.customers.length; }
 
@@ -94,8 +112,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
             $scope.$apply();
           });
 
-      } else hideRegistration();
-
+      } else {
+        // hideContainer(createContainer, hidingRegistration);
+        // hideContainer(editContainer, hidingEditContainer);
+      }
       return;
     }
 
@@ -105,9 +125,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
         $scope.customers = response.data.slice();
 
-        if (numberOfCustomers() == 0) showRegistration();
+        if (numberOfCustomers() == 0) showContainer(createContainer, hidingRegistration);
         else if (numberOfCustomers() == 1) $scope.select($scope.customers[0]);
-        else hideRegistration();
+        else hideContainer(createContainer, hidingRegistration);
 
       });
 
@@ -139,7 +159,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     // $http.post('http://localhost:27017/customers/', $scope.newCustomer)
     //   .then((response) => {
     //
-    //     hideRegistration();
+    //     hideContainer(createContainer, hidingRegistration);
     //     // TODO: Update UI with new customer information
     //     $http.get('http://localhost:27017/customers/' + searchInput.val())
     //       .then((response) => {
