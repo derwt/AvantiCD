@@ -10,18 +10,6 @@ app.directive('idCard', function() {
   };
 });
 
-app.directive('editInput', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      label: '@label',
-      placeholder: '@placeholder',
-      field: '='
-    },
-    templateUrl: 'js/directives/edit-input.html'
-  };
-});
-
 app.directive('titleContent', function() {
   return {
     restrict: 'E',
