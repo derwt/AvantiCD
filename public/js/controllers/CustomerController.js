@@ -14,6 +14,14 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
 
+  const emptyCustomer = {
+    phone: [],
+    city: "",
+    address: "",
+    cross: "",
+    note: ""
+  };
+
   $scope.headers = {
     edit:
     [
@@ -71,6 +79,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
     // TODO: Update call to UI
     setMapDestination(idCard.address);
+    selectCity($scope.getCityIndexByName($scope.selected.city));
     showContainer(editContainer, hidingEditContainer);
 
   }
@@ -133,8 +142,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   function slideAndHide(container) {
+
     removeClassFrom(container, 'hidden');
     removeClassFrom(container, 'fadeOutLeft');
+
   }
 
   function slideIn(container, hiding) {
@@ -147,6 +158,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     setTimeout(() => {
       slideAndHide(container);
     }, 800);
+
   }
 
   function slideOut(container, hiding) {
@@ -178,14 +190,15 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     setCurrent(null, hiding);
     hidingSearchContainer = false;
     slideOut(container, hiding);
+
   }
 
   $scope.hideContainer = function() {
     hideContainer(currentContainer, currentHiding);
   }
-  // showContainer(createContainer, hidingRegistration);
 
   let numberOfCustomers = () => { return $scope.customers.length; }
+  let resetNewCustomer = () => { $scope.newCustomer = Object.assign({}, emptyCustomer); }
 
   let searchInput = $('#searchInput');
   $(searchInput).on('input', (e) => {
@@ -201,9 +214,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
             $scope.$apply();
           });
 
-      } else {
-        // hideContainer(createContainer, hidingRegistration);
-        // hideContainer(editContainer, hidingEditContainer);
       }
       return;
     }
@@ -212,6 +222,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
       .then((response) => {
 
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
+
+        resetNewCustomer();
+        resetCityButtonStates();
         $scope.customers = response.data.slice();
 
         if (numberOfCustomers() == 0)
@@ -241,6 +254,17 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     angular.forEach(cityButtons, (button, index) => {
       $scope.cityButtonStates[index] = (position == index);
     });
+  }
+
+  function selectCity(index) {
+    for (let i in $scope.cityButtonStates) {
+      if (i != index) $scope.cityButtonStates[i] = false;
+      else $scope.cityButtonStates[i] = true;
+    }
+  }
+
+  function resetCityButtonStates() {
+    $scope.cityButtonStates = new Array($scope.cities.length).fill(false);
   }
 
   let getPhoneNumbers = () => { return $('#phoneInput').val(); }
