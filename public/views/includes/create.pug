@@ -2,14 +2,15 @@
   .header
     | {{ headers.create[randomIndex] }}
   form(name="createForm")
-    md-input-container.md-block
-      label Phone Number
-      input#phoneInput(name="phone" ng-model="newCustomer.phone" 
-      ng-pattern="/^[0-9]{10}$/" required md-no-asterisk)
-      .errors(ng-messages="createForm.phone.$error")
-        div(ng-message="required") Please enter a value for this field.
-        div(ng-message="pattern") ########## - Please enter a valid phone number.
-    md-input-container.md-block
+    md-chips(ng-model="newCustomer.phone" name="phoneNumbers" 
+    readonly="chips.readonly" md-removable="chips.removable" 
+    md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
+    md-on-add="logSelected()" md-add-on-blur="true"
+    md-separator-keys="chips.keys" placeholder="Add a phone number...") 
+    .errors(ng-messages="createForm.phoneNumbers.$error")
+      div(ng-message="md-max-chips") Maximum number of phone numbers reached.
+      div(ng-show="newCustomer.phone.length === 0") Customer must have at least one phone number.
+    md-input-container.md-block(style="margin-top:50px;")
       label Address
       input#addressInput(name="address" ng-model="newCustomer.address" 
       ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s[a-zA-Z]+)$/")

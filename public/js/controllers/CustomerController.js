@@ -3,7 +3,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.tagline = 'Let\'s get some pizza ready!';
   $scope.customers = [];
   $scope.newCustomer = {
-    phone: "",
+    phone: [],
     city: "",
     address: "",
     cross: "",
@@ -39,7 +39,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.chips = {
     readonly: false,
     removable: true,
-    keys: [enter, comma, semicolon]
+    keys: [enter, comma, semicolon],
+    max: 3
   };
 
   $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
@@ -61,6 +62,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     console.log($scope.selected);
   }
 
+  function RandomInRange(min, max) {
+    return Math.floor((Math.random() * max) + min);
+  }
+
   $scope.select = (idCard) => {
     $scope.selected = idCard;
 
@@ -75,18 +80,32 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.validateChip = ($chip, type) => {
-    switch (type) {
-      case 'phone':
-        if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
-        for (i in $scope.selected.phone) {
-          // Reject duplicate values
-          if (Number($chip) == $scope.selected.phone[i]) {
-            return null;
+  switch (type) {
+    case 'phone':
+      if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
+      switch (currentContainer) {
+        case editContainer:
+          for (i in $scope.selected.phone) {
+            // Reject duplicate values
+            if (Number($chip) == $scope.selected.phone[i]) {
+              return null;
+            }
           }
-        }
-        break;
-    }
+          break;
+        case createContainer:
+          for (i in $scope.newCustomer.phone) {
+            // Reject duplicate values
+            if (Number($chip) == $scope.newCustomer.phone[i]) {
+              return null;
+            }
+          }
+          break;
+        default:
+          console.log("Error! Current container not valid!");
+      }
+      break;
   }
+}
 
   let getSearchValue        = () => { return searchInput.val(); }
   let digitsLength     = () => { return getSearchValue().length; }
@@ -105,20 +124,51 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     currentHiding = hiding;
   }
 
-  function showContainer(container, hiding) {
+  function removeClassFrom(element, className) {
+    if (element.hasClass(className)) element.removeClass(className);
+  }
 
-    hiding = false;
-    hidingSearchContainer = true;
-    setCurrent(container, hiding);
+  function addClassTo(element, className) {
+    if (!element.hasClass(className)) element.addClass(className);
+  }
+
+  function slideAndHide(container) {
+    removeClassFrom(container, 'hidden');
+    removeClassFrom(container, 'fadeOutLeft');
+  }
+
+  function slideIn(container, hiding) {
+
     container.removeClass('fadeOutRight');
     if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').one(
       'animationend', (error) => {
         if (hidingSearchContainer) searchContainer.addClass('hidden');
     });
     setTimeout(() => {
-      if (container.hasClass('hidden')) container.removeClass('hidden');
-      if (container.hasClass('fadeOutLeft')) container.removeClass('fadeOutLeft');
+      slideAndHide(container);
     }, 800);
+  }
+
+  function slideOut(container, hiding) {
+
+    removeClassFrom(searchContainer, 'fadeOutRight');
+    if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
+      'animationend', (error) => {
+        if (!hidingSearchContainer && hiding) container.addClass('hidden');
+    });
+    setTimeout(() => {
+      slideAndHide(searchContainer);
+      addClassTo(searchContainer, 'fadeInLeft');
+    }, 800);
+
+  }
+
+  function showContainer(container, hiding) {
+
+    hiding = false;
+    hidingSearchContainer = true;
+    setCurrent(container, hiding);
+    slideIn(container, hiding);
 
   }
 
@@ -127,16 +177,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     hiding = true;
     setCurrent(null, hiding);
     hidingSearchContainer = false;
-    if (searchContainer.hasClass('fadeOutRight')) searchContainer.removeClass('fadeOutRight');
-    if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
-      'animationend', (error) => {
-        if (!hidingSearchContainer && hiding) container.addClass('hidden');
-  });
-    setTimeout(() => {
-      if (searchContainer.hasClass('hidden')) searchContainer.removeClass('hidden');
-      if (searchContainer.hasClass('fadeOutLeft')) searchContainer.removeClass('fadeOutLeft');
-      if (!searchContainer.hasClass('fadeInLeft')) searchContainer.addClass('fadeInLeft');
-    }, 800);
+    slideOut(container, hiding);
   }
 
   $scope.hideContainer = function() {
@@ -173,17 +214,22 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
         $scope.customers = response.data.slice();
 
-        if (numberOfCustomers() == 0) {
+        if (numberOfCustomers() == 0)
+        {
+          $scope.newCustomer.phone = [getSearchValue()];
+          $scope.randomIndex = RandomInRange(0, $scope.headers.create.length);
           showContainer(createContainer, hidingRegistration);
-          $scope.randomIndex = Math.floor(
-            (Math.random() * $scope.headers.create.length) + 0);
-        } else if (numberOfCustomers() == 1) {
+        }
+        else if (numberOfCustomers() == 1)
+        {
+        $scope.randomIndex = RandomInRange(0, $scope.headers.edit.length);
         $scope.select($scope.customers[0]);
-        $scope.randomIndex = Math.floor(
-          (Math.random() * $scope.headers.edit.length) + 0);
-      }
-        else if (!hasSearchedOnce) hasSearchedOnce = true;
-        else {
+        }
+        else if (!hasSearchedOnce) {
+          hasSearchedOnce = true;
+        }
+        else
+        {
           hideContainer(createContainer, hidingRegistration);
         }
       });

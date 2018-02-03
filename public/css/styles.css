@@ -29,15 +29,22 @@ form .errors {
 }
 
 md-chips * span {
-  font-size: 16pt;
-  color: black;
+font-size: 16pt;
+ color: black;
 }
 
+md-chips input {
+  font-size: 14pt;
+}
+
+md-input-container input {
+  font-size: 14pt;
+}
 /* md-chips * md-chip {
   background-color: #D2D7D3;
-}
+} */
 
-.chips-phone * md-icon {
+/* .chips-phone * md-icon {
   color: white;
 } */
 
@@ -117,6 +124,10 @@ md-chips * span {
 .hidden {
   visibility: hidden;
   display: none;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .container-id-card {
