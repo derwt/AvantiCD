@@ -1,4 +1,6 @@
 #editContainer.container-search.animated.fadeInRight.hidden
+  .header
+    | {{ headers.edit[randomIndex] }}
   form(name="editForm")
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
