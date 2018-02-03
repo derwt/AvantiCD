@@ -80,6 +80,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let createContainer  = $('#createContainer');
   let editContainer = $('#editContainer');
 
+  let hasSearchedOnce = false;
   let hidingSearchContainer, hidingRegistration, hidingEditContainer = false;
   let currentContainer, currentHiding = null;
 
@@ -96,7 +97,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     container.removeClass('fadeOutRight');
     if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').one(
       'animationend', (error) => {
-        console.log("s_hiding: " + hiding);
         if (hidingSearchContainer) searchContainer.addClass('hidden');
     });
     setTimeout(() => {
@@ -114,8 +114,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     if (searchContainer.hasClass('fadeOutRight')) searchContainer.removeClass('fadeOutRight');
     if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
       'animationend', (error) => {
-        console.log("h_hiding: " + hiding);
-        if (hiding) container.addClass('hidden');
+        if (!hidingSearchContainer && hiding) container.addClass('hidden');
   });
     setTimeout(() => {
       if (searchContainer.hasClass('hidden')) searchContainer.removeClass('hidden');
@@ -125,7 +124,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.hideContainer = function() {
-    console.log("scope_hiding: " + hiding);
     hideContainer(currentContainer, currentHiding);
   }
   // showContainer(createContainer, hidingRegistration);
@@ -161,6 +159,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
         if (numberOfCustomers() == 0) showContainer(createContainer, hidingRegistration);
         else if (numberOfCustomers() == 1) $scope.select($scope.customers[0]);
+        else if (!hasSearchedOnce) hasSearchedOnce = true;
         else {
           hideContainer(createContainer, hidingRegistration);
         }
