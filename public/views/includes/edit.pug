@@ -3,6 +3,7 @@
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="3" md-transform-chip="validateChip($chip, 'phone')"
+    md-on-add="logSelected()" md-add-on-blur="true"
     md-separator-keys="chips.keys" placeholder="Add a phone number...") 
     .errors(ng-messages="editForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
