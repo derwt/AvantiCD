@@ -14,6 +14,22 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
 
+  $scope.headers = {
+    edit:
+    [
+      "👩‍🍳 What a great customer!",
+      "Let's serve up a 🍕 of heaven!",
+      "😋 I love this part!"
+    ],
+    create:
+    [
+      "Hooray 🎉 a new customer!",
+      "🤑 We must be doing something right!",
+      "👃 I can smell the pizza already!"
+    ]
+  };
+  $scope.randomIndex = 0;
+
   let semicolon = 186;
   let comma = 188;
   let enter = 13;
@@ -157,8 +173,15 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
         $scope.customers = response.data.slice();
 
-        if (numberOfCustomers() == 0) showContainer(createContainer, hidingRegistration);
-        else if (numberOfCustomers() == 1) $scope.select($scope.customers[0]);
+        if (numberOfCustomers() == 0) {
+          showContainer(createContainer, hidingRegistration);
+          $scope.randomIndex = Math.floor(
+            (Math.random() * $scope.headers.create.length) + 0);
+        } else if (numberOfCustomers() == 1) {
+        $scope.select($scope.customers[0]);
+        $scope.randomIndex = Math.floor(
+          (Math.random() * $scope.headers.edit.length) + 0);
+      }
         else if (!hasSearchedOnce) hasSearchedOnce = true;
         else {
           hideContainer(createContainer, hidingRegistration);

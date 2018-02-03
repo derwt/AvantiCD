@@ -1,6 +1,6 @@
 #createContainer.container-search.animated.fadeInRight.hidden
   .header
-    | Hooray 🎉 a new customer!
+    | {{ headers.create[randomIndex] }}
   form(name="createForm")
     md-input-container.md-block
       label Phone Number
