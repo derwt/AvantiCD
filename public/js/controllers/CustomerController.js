@@ -41,6 +41,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     if (map[0] !== undefined) return (map[0].src.match(/destination=(.*)/)[1]);
   }
 
+  $scope.logSelected = function() {
+    console.log($scope.selected);
+  }
+
   $scope.select = (idCard) => {
     $scope.selected = idCard;
 
@@ -58,6 +62,12 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     switch (type) {
       case 'phone':
         if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
+        for (i in $scope.selected.phone) {
+          // Reject duplicate values
+          if (Number($chip) == $scope.selected.phone[i]) {
+            return null;
+          }
+        }
         break;
     }
   }
@@ -86,6 +96,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     container.removeClass('fadeOutRight');
     if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').one(
       'animationend', (error) => {
+        console.log("s_hiding: " + hiding);
         if (hidingSearchContainer) searchContainer.addClass('hidden');
     });
     setTimeout(() => {
@@ -103,6 +114,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     if (searchContainer.hasClass('fadeOutRight')) searchContainer.removeClass('fadeOutRight');
     if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
       'animationend', (error) => {
+        console.log("h_hiding: " + hiding);
         if (hiding) container.addClass('hidden');
   });
     setTimeout(() => {
@@ -113,6 +125,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.hideContainer = function() {
+    console.log("scope_hiding: " + hiding);
     hideContainer(currentContainer, currentHiding);
   }
   // showContainer(createContainer, hidingRegistration);
