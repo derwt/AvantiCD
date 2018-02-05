@@ -37,6 +37,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     ]
   };
   $scope.randomIndex = 0;
+  $scope.showingSearch = true;
 
   let semicolon = 186;
   let comma = 188;
@@ -157,6 +158,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     });
     setTimeout(() => {
       slideAndHide(container);
+      $scope.$apply(() => {
+        $scope.showingSearch = false
+      });
     }, 800);
 
   }
@@ -164,6 +168,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   function slideOut(container, hiding) {
 
     removeClassFrom(searchContainer, 'fadeOutRight');
+    $scope.showingSearch = true;
+    console.log($scope.showingSearch);
     if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
       'animationend', (error) => {
         if (!hidingSearchContainer && hiding) container.addClass('hidden');
