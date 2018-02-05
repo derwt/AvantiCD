@@ -13,6 +13,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
+  const customersURL = 'http://localhost:27017/customers/';
 
   const emptyCustomer = {
     phone: [],
@@ -143,10 +144,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   function slideAndHide(container) {
-
     removeClassFrom(container, 'hidden');
     removeClassFrom(container, 'fadeOutLeft');
-
   }
 
   function slideIn(container, hiding) {
@@ -255,8 +254,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   });
 
-  $scope.selectCity = (position, cityButtons) => {
-    $scope.newCustomer.city = cityButtons[position];
+  $scope.selectCity = (position, cityButtons, sender) => {
+    if (sender == 'edit') $scope.selected.city = cityButtons[position];
+    else if (sender == 'create') $scope.newCustomer.city = cityButtons[position];
     angular.forEach(cityButtons, (button, index) => {
       $scope.cityButtonStates[index] = (position == index);
     });
@@ -272,6 +272,15 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   function resetCityButtonStates() {
     $scope.cityButtonStates = new Array($scope.cities.length).fill(false);
   }
+
+  $scope.inputToInteger = () => {
+  for (let index in $scope.selected.phone) {
+    let input = $scope.selected.phone[index];
+    if (typeof(input) === 'string') {
+      $scope.selected.phone[index] = Number(input);
+    }
+  }
+}
 
   let getPhoneNumbers = () => { return $('#phoneInput').val(); }
   let getAddress = () => { return $('#addressInput').val(); }
@@ -294,7 +303,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
         hideContainer(createContainer, hidingRegistration);
         // TODO: Update UI with new customer information
-        $http.get('http://localhost:27017/customers/' + searchInput.val())
+        $http.get(customersURL + searchInput.val())
           .then((response) => {
             $scope.customers = response.data.slice();
           });
@@ -311,8 +320,29 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   }
 
-  $scope.editField = (field) => {
+$scope.editCustomer = () => {
 
-  }
+  $http.put(customersURL + searchInput.val(), $scope.selected)
+    .then((response) => {
+
+      console.log('hooray!!!!');
+      hideContainer(editContainer, hidingEditContainer);
+      // TODO: Update UI with new customer information
+      $http.get(customersURL + searchInput.val())
+        .then((response) => {
+          $scope.customers = response.data.slice();
+        });
+
+    }, (response) => {
+
+      console.log('nooo!!!');
+      $scope.errors.splice(0 ,$scope.errors.length);
+      angular.forEach(response.data.errors, (error, index) => {
+        $scope.errors.push(error.message);
+      });
+
+    });
+
+}
 
 }]);

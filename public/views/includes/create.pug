@@ -1,5 +1,5 @@
 #createContainer.container-search.animated.fadeInRight.hidden
-  .header
+  .header.animated
     | {{ headers.create[randomIndex] }}
   form(name="createForm")
     md-chips(ng-model="newCustomer.phone" name="phoneNumbers" 
@@ -22,13 +22,13 @@
         ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
         '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
         ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
-        ng-click="selectCity($index, cities);") {{ city }}
+        ng-click="selectCity($index, cities, 'create');") {{ city }}
     md-input-container.md-block
       label Cross Street
-      input#crossInput(name="cross" ng-model="newCustomer.cross")
+      input#crossInput.black-text(name="cross" ng-model="newCustomer.cross")
     md-input-container.md-block
       label Customer Notes
-      textarea#noteInput(ng-model="newCustomer.note" md-maxlength="150" rows="3" md-select-on-focus="")
+      textarea#noteInput.black-text(ng-model="newCustomer.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
     .text-center
       button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
   md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")

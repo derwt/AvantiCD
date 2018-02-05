@@ -1,5 +1,15 @@
 let app = angular.module('acid', ['ngRoute', 'ngMessages', 'ngMaterial', 'ngAria', 'ngAnimate', 'appRoutes', 'CustomerController', 'NerdController', 'CustomerService']);
 
+app.directive('customerForm', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      name: '@name'
+    },
+    templateUrl: 'js/directives/customer-form.html'
+  };
+});
+
 app.directive('idCard', function() {
   return {
     restrict: 'E',
@@ -9,6 +19,18 @@ app.directive('idCard', function() {
     templateUrl: 'js/directives/id-card.html'
   };
 });
+
+app.directive("limitTo", [function() {
+  return {
+    restrict: "A",
+    link: function(scope, elem, attrs) {
+      var limit = parseInt(attrs.limitTo);
+      angular.element(elem).on("keypress", function(e) {
+        if (this.value.length == limit) e.preventDefault();
+      });
+    }
+  }
+}]);
 
 app.directive('titleContent', function() {
   return {
@@ -22,17 +44,6 @@ app.directive('titleContent', function() {
   };
 });
 
-app.directive("limitTo", [function() {
-    return {
-        restrict: "A",
-        link: function(scope, elem, attrs) {
-            var limit = parseInt(attrs.limitTo);
-            angular.element(elem).on("keypress", function(e) {
-                if (this.value.length == limit) e.preventDefault();
-            });
-        }
-    }
-}]);
 
 app.filter('telephone', function() {
   return function(telephone) {
