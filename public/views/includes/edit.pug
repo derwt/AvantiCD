@@ -5,7 +5,7 @@
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
-    md-on-add="logSelected()" md-add-on-blur="true"
+    md-on-add="inputToInteger()" md-add-on-blur="true"
     md-separator-keys="chips.keys" placeholder="Add a phone number...") 
     .errors(ng-messages="editForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
@@ -23,13 +23,13 @@
         ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
         '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
         ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
-        ng-click="selectCity($index, cities);") {{ city }}
+        ng-click="selectCity($index, cities, 'edit');") {{ city }}
     md-input-container.md-block
       label Cross Street
-      input#crossInput.black-text(name="cross" ng-model="selected.cross")
+      input#crossInput(name="cross" ng-model="selected.cross")
     md-input-container.md-block
       label Customer Notes
-      textarea#noteInput.black-text(ng-model="selected.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
+      textarea#noteInput(ng-model="selected.note" md-maxlength="150" rows="3" md-select-on-focus="")
     .text-center
       button#editButton.btn.green.darken-2(ng-click="editCustomer()") Edit Customer!
   md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")

@@ -68,10 +68,10 @@ customersRouter.put('/:number', (req, res, next) => {
     }
 
     // Do not update a field when its matching input is empty ('')
-    isEmpty = (field) => { return req.params[field] == '' || req.params[field] == null || req.body[field] == undefined; }
+    isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
     defaultField = (field) => {
       if (isEmpty(field)) return customer[field];
-      else return req.params[field];
+      else return req.body[field];
     }
 
       console.log("Updating customer with CID: " + customer.cid);

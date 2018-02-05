@@ -30,7 +30,8 @@ form .errors {
 
 .container-main {
   min-height: 800px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: 800px;
   transition: border 2s ease-in-out;
 }
@@ -151,7 +152,7 @@ textarea.md-input{
 }
 
 .container-id-card {
-  min-height: 800px;
+  /* min-height: 800px; */
   overflow-x: hidden;
 }
 
