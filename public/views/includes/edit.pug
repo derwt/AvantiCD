@@ -24,5 +24,13 @@
         '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
         ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
         ng-click="selectCity($index, cities);") {{ city }}
+    md-input-container.md-block
+      label Cross Street
+      input#crossInput.black-text(name="cross" ng-model="selected.cross")
+    md-input-container.md-block
+      label Customer Notes
+      textarea#noteInput.black-text(ng-model="selected.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
+    .text-center
+      button#editButton.btn.green.darken-2(ng-click="editCustomer()") Edit Customer!
   md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
     i.material-icons arrow_back

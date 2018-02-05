@@ -56,6 +56,10 @@ md-input-container input {
   font-size: 14pt;
 }
 
+textarea.md-input{
+  transition: height 0.5s ease;
+}
+
 /* md-chips * md-chip {
   background-color: #D2D7D3;
 } */
@@ -328,7 +332,14 @@ id-card.highlighted {
   border-radius: 10px;
   font-size: 14pt;
   font-weight: normal;
-  padding: .5rem 1.35rem .5rem 1.35rem;
+  padding: .75rem 1.35rem;
+}
+
+#editButton {
+  border-radius: 10px;
+  font-size: 14pt;
+  font-weight: normal;
+  padding: .75rem 1.35rem;
 }
 
 #crossInput {}
