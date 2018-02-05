@@ -70,17 +70,24 @@ customersRouter.put('/:number', (req, res, next) => {
     // Do not update a field when its matching input is empty ('')
     isEmpty = (field) => { return req.body[field] == '' || req.body[field] == null || req.body[field] == undefined; }
     defaultField = (field) => {
-      if (isEmpty(field)) return customer[field];
+      if (isEmpty(field)) {
+        return customer[field];
+      }
       else return req.body[field];
     }
 
       console.log("Updating customer with CID: " + customer.cid);
       customer.phone   = defaultField('phone');
-      customer.city    = defaultField('city');
-      customer.address = defaultField('address');
-      customer.cross   = defaultField('cross');
-      customer.note    = defaultField('note');
-      customer.ordered = defaultField('ordered')
+      customer.city    = req.body.city;
+      customer.address = req.body.address;
+      customer.cross   = req.body.cross;
+      customer.note    = req.body.note;
+      customer.ordered = req.body.ordered;
+      // customer.city    = defaultField('city');
+      // customer.address = defaultField('address');
+      // customer.cross   = defaultField('cross');
+      // customer.note    = defaultField('note');
+      // customer.ordered = defaultField('ordered')
 
       customer.validate((err) => {
         if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);

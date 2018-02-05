@@ -5,7 +5,7 @@
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
-    md-on-add="inputToInteger()" md-add-on-blur="true"
+    md-on-add="inputToInteger(edit)" md-add-on-blur="true"
     md-separator-keys="chips.keys" placeholder="Add a phone number...") 
     .errors(ng-messages="editForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
@@ -13,9 +13,8 @@
     md-input-container.md-block(style="margin-top:50px;")
       label Address
       input#addressInput(name="address" ng-model="selected.address" 
-      ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s[a-zA-Z]+)$/" required md-no-asterisk)
+      ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s[a-zA-Z]+)$/")
       .errors(ng-messages="editForm.address.$error")
-        div(ng-message="required") Please enter a value for this field.
         div(ng-message="pattern") Please enter a valid Address.
     #citySelect.customer-field
       div(ng-repeat="city in cities")
@@ -29,7 +28,7 @@
       input#crossInput(name="cross" ng-model="selected.cross")
     md-input-container.md-block
       label Customer Notes
-      textarea#noteInput(ng-model="selected.note" md-maxlength="150" rows="3" md-select-on-focus="")
+      textarea#noteInput(ng-model="selected.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
     .text-center
       button#editButton.btn.green.darken-2(ng-click="editCustomer()") Edit Customer!
   md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
