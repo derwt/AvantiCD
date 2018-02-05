@@ -28,9 +28,24 @@ form .errors {
   color: white !important;
 }
 
+.container-main {
+  min-height: 800px;
+  overflow: hidden;
+  height: 800px;
+  transition: border 2s ease-in-out;
+}
+
+.border-search {
+  border: 3px solid transparent;
+}
+
+.border-active {
+  border: 3px solid var(--history-accent-color);
+}
+
 md-chips * span {
-font-size: 16pt;
- color: black;
+  font-size: 16pt;
+  color: black;
 }
 
 md-chips input {
@@ -40,6 +55,7 @@ md-chips input {
 md-input-container input {
   font-size: 14pt;
 }
+
 /* md-chips * md-chip {
   background-color: #D2D7D3;
 } */
