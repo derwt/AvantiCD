@@ -1,5 +1,6 @@
 :root {
   --history-accent-color: #1E8BC3;
+  --form-font-size: 16pt;
 }
 
 body {
@@ -11,7 +12,7 @@ html {
 }
 
 form .errors {
-  font-size: 12px;
+  font-size: 15px;
   color: #dd2c00;
   margin-top: 5px;
 }
@@ -29,10 +30,9 @@ form .errors {
 }
 
 .container-main {
-  min-height: 800px;
+  min-height: 950px;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 800px;
   transition: border 2s ease-in-out;
 }
 
@@ -50,14 +50,14 @@ md-chips * span {
 }
 
 md-chips input {
-  font-size: 14pt;
+  font-size: var(--form-font-size);
 }
 
-md-input-container input {
-  font-size: 14pt;
-}
+/* md-input-container input {
+  font-size: var(--form-font-size);
+} */
 
-textarea.md-input{
+textarea.md-input {
   transition: height 0.5s ease;
 }
 
@@ -133,7 +133,7 @@ textarea.md-input{
   margin-top: 16px;
 }
 
-.customer-info .history-header {
+.history .header {
   height: 50px;
   background-color: var(--history-accent-color);
   padding: 5px 10px;
@@ -251,7 +251,7 @@ id-card.highlighted {
 }
 
 .container-map {
-  height: 80%;
+  height: 75%;
   margin-bottom: 10px;
 }
 
@@ -310,7 +310,7 @@ id-card.highlighted {
   /* margin: 10px; */
   /* padding-left: 10px; */
   color: black;
-  /* font-size: 18pt; */
+  font-size: var(--form-font-size);
   /* border-radius: 5px; */
 }
 
@@ -323,7 +323,7 @@ id-card.highlighted {
 }
 
 #citySelect button {
-  font-size: 14pt;
+  font-size: var(--form-font-size);
   font-weight: normal;
   border-radius: 10px;
   padding: .5rem 1.35rem .5rem 1.35rem;
@@ -331,19 +331,21 @@ id-card.highlighted {
 
 #createButton {
   border-radius: 10px;
-  font-size: 14pt;
+  font-size: var(--form-font-size);
   font-weight: normal;
   padding: .75rem 1.35rem;
 }
 
 #editButton {
   border-radius: 10px;
-  font-size: 14pt;
+  font-size: var(--form-font-size);
   font-weight: normal;
   padding: .75rem 1.35rem;
 }
 
-#crossInput {}
+#crossInput {
+  font-size: 13pt;
+}
 
 #editContainer {}
 
@@ -356,6 +358,11 @@ id-card.highlighted {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+#noteInput {
+  font-size: 13pt;
+  min-height: 30px;
 }
 
 #phoneInput {}

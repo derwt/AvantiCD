@@ -273,16 +273,26 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     $scope.cityButtonStates = new Array($scope.cities.length).fill(false);
   }
 
-  $scope.inputToInteger = () => {
-  for (let index in $scope.selected.phone) {
-    let input = $scope.selected.phone[index];
-    if (typeof(input) === 'string') {
-      $scope.selected.phone[index] = Number(input);
+  $scope.inputToInteger = (sender) => {
+  if (sender == 'edit') {
+    for (let index in $scope.selected.phone) {
+      let input = $scope.selected.phone[index];
+      if (typeof(input) === 'string') {
+        $scope.selected.phone[index] = Number(input);
+      }
+    }
+  }
+  else if (sender == 'create') {
+    for (let index in $scope.newCustomer.phone) {
+      let input = $scope.newCustomer.phone[index];
+      if (typeof(input) === 'string') {
+        $scope.newCustomer.phone[index] = Number(input);
+      }
     }
   }
 }
 
-  let getPhoneNumbers = () => { return $('#phoneInput').val(); }
+  let getPhoneNumbers = () => { return $scope.newCustomer.phone }
   let getAddress = () => { return $('#addressInput').val(); }
   let getCross = () => { return $('#crossInput').val(); }
   let getNote = () => { return $('#noteInput').val(); }
@@ -325,7 +335,6 @@ $scope.editCustomer = () => {
   $http.put(customersURL + searchInput.val(), $scope.selected)
     .then((response) => {
 
-      console.log('hooray!!!!');
       hideContainer(editContainer, hidingEditContainer);
       // TODO: Update UI with new customer information
       $http.get(customersURL + searchInput.val())
@@ -335,7 +344,7 @@ $scope.editCustomer = () => {
 
     }, (response) => {
 
-      console.log('nooo!!!');
+      console.log(response);
       $scope.errors.splice(0 ,$scope.errors.length);
       angular.forEach(response.data.errors, (error, index) => {
         $scope.errors.push(error.message);
