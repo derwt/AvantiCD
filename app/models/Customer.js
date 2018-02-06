@@ -28,10 +28,10 @@ var customerSchema = new Schema({
   city: {
     type: String,
     enum: {
-      values:['BL', 'SC','SM', 'RWS', 'RWC', 'FC', 'HB'],
+      values:['BL', 'SC','SM', 'RWS', 'RWC', 'FC', 'HB', ''],
       message: '{VALUE} is not a valid option. Check app/models/Customer.js for correct options',
-    },
-    required: [true, 'Customer city required'],
+    }
+    // required: [true, 'Customer city required'],
   },
   address: {
     type: String,
