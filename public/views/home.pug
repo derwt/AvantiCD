@@ -2,7 +2,8 @@ html
   body
     .row(style="margin-top:40px;")
       .col-md-4
-        div.z-depth-1-half.container-main.animated(ng-class="showingSearch ? 'border-search' : 'border-active'")
+        .z-depth-1-half.container-main.animated(ng-class="showingSearch ? 'border-search' : 'border-active'")
+          canvas#canvas
           include includes/create.pug
           include includes/edit.pug
           .container-id-card.animated#searchContainer
