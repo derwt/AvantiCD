@@ -30,7 +30,7 @@ form .errors {
 }
 
 .container-main {
-  min-height: 950px;
+  height: 850px;
   overflow-x: hidden;
   overflow-y: auto;
   transition: border 2s ease-in-out;
