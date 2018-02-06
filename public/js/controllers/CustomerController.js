@@ -388,7 +388,7 @@ let particleColors = {
 
 $scope.confettiBurst = () => {
   $scope.activate();
-  setTimeout($scope.deactivate, 1000);
+  setTimeout($scope.deactivate, 1200);
 }
 
 function confettiParticle(color) {
