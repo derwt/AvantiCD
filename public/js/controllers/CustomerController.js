@@ -311,12 +311,15 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
       .then((response) => {
 
         $scope.confettiBurst();
-        hideContainer(createContainer, hidingRegistration);
-        // TODO: Update UI with new customer information
         $http.get(customersURL + searchInput.val())
           .then((response) => {
             $scope.customers = response.data.slice();
+            $scope.selected = $scope.customers[0];
           });
+
+          createContainer.addClass('fadeOut hidden');
+          editContainer.removeClass('fadeInRight hidden');
+          editContainer.addClass('tada');
 
       }, (response) => {
 
