@@ -274,25 +274,24 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.inputToInteger = (sender) => {
-  if (sender == 'edit') {
-    for (let index in $scope.selected.phone) {
-      let input = $scope.selected.phone[index];
-      if (typeof(input) === 'string') {
-        $scope.selected.phone[index] = Number(input);
+    if (sender == 'edit') {
+      for (let index in $scope.selected.phone) {
+        let input = $scope.selected.phone[index];
+        if (typeof(input) === 'string') {
+          $scope.selected.phone[index] = Number(input);
+        }
+      }
+    } else if (sender == 'create') {
+      for (let index in $scope.newCustomer.phone) {
+        let input = $scope.newCustomer.phone[index];
+        if (typeof(input) === 'string') {
+          $scope.newCustomer.phone[index] = Number(input);
+        }
       }
     }
   }
-  else if (sender == 'create') {
-    for (let index in $scope.newCustomer.phone) {
-      let input = $scope.newCustomer.phone[index];
-      if (typeof(input) === 'string') {
-        $scope.newCustomer.phone[index] = Number(input);
-      }
-    }
-  }
-}
 
-  let getPhoneNumbers = () => { return $scope.newCustomer.phone }
+  let getPhoneNumbers = () => { return $scope.newCustomer.phone; }
   let getAddress = () => { return $('#addressInput').val(); }
   let getCross = () => { return $('#crossInput').val(); }
   let getNote = () => { return $('#noteInput').val(); }
@@ -311,6 +310,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
 
+        $scope.confettiBurst();
         hideContainer(createContainer, hidingRegistration);
         // TODO: Update UI with new customer information
         $http.get(customersURL + searchInput.val())
@@ -353,5 +353,222 @@ $scope.editCustomer = () => {
     });
 
 }
+
+/****************************************
+*************CONFETTI SECTION************
+****************************************/
+
+let canvas, ctx, W, H;
+let mp = 200; //max particles
+let confettiWidth = 1.15;
+let particles = [];
+let angle = 0;
+let tiltAngle = 0;
+let confettiActive = true;
+let animationComplete = true;
+let deactivationTimerHandler, reactivationTimerHandler, animationHandler;
+
+let particleColors = {
+    colorOptions: ["DodgerBlue", "OliveDrab", "Gold", "pink", "SlateBlue", "lightblue", "Violet", "PaleGreen", "SteelBlue", "SandyBrown", "Chocolate", "Crimson"],
+    colorIndex: 0,
+    colorIncrementer: 0,
+    colorThreshold: 10,
+    getColor: function () {
+        if (this.colorIncrementer >= 10) {
+            this.colorIncrementer = 0;
+            this.colorIndex++;
+            if (this.colorIndex >= this.colorOptions.length) {
+                this.colorIndex = 0;
+            }
+        }
+        this.colorIncrementer++;
+        return this.colorOptions[this.colorIndex];
+    }
+}
+
+$scope.confettiBurst = () => {
+  $scope.activate();
+  setTimeout($scope.deactivate, 1000);
+}
+
+function confettiParticle(color) {
+    this.x = Math.random() * W; // x-coordinate
+    this.y = (Math.random() * H) - H; //y-coordinate
+    this.r = RandomFromTo(10, 30); //radius;
+    this.d = (Math.random() * mp) + 10; //density;
+    this.color = color;
+    this.tilt = Math.floor(Math.random() * 10) - 10;
+    this.tiltAngleIncremental = (Math.random() * 0.07) + .05;
+    this.tiltAngle = 0;
+
+    this.draw = function () {
+        ctx.beginPath();
+        ctx.lineWidth = this.r * confettiWidth;
+        ctx.strokeStyle = this.color;
+        ctx.moveTo(this.x + this.tilt + (this.r / 4), this.y);
+        ctx.lineTo(this.x + this.tilt, this.y + this.tilt + (this.r / 4));
+        return ctx.stroke();
+    }
+}
+
+$(document).ready(function () {
+    SetGlobals();
+    InitializeConfetti();
+
+    $(window).resize(function () {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        canvas.width = W;
+        canvas.height = H;
+    });
+
+    StopConfetti();
+});
+
+function SetGlobals() {
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+}
+
+function InitializeConfetti() {
+    particles = [];
+    animationComplete = false;
+    for (let i = 0; i < mp; i++) {
+        let particleColor = particleColors.getColor();
+        particles.push(new confettiParticle(particleColor));
+    }
+    StartConfetti();
+}
+
+function Draw() {
+    ctx.clearRect(0, 0, W, H);
+    let results = [];
+    for (let i = 0; i < mp; i++) {
+        (function (j) {
+            results.push(particles[j].draw());
+        })(i);
+    }
+    Update();
+
+    return results;
+}
+
+function RandomFromTo(from, to) {
+    return Math.floor(Math.random() * (to - from + 1) + from);
+}
+
+function Update() {
+    let remainingFlakes = 0;
+    let particle;
+    angle += 0.01;
+    tiltAngle += 0.1;
+
+    for (let i = 0; i < mp; i++) {
+        particle = particles[i];
+        if (animationComplete) return;
+
+        if (!confettiActive && particle.y < -15) {
+            particle.y = H + 100;
+            continue;
+        }
+
+        stepParticle(particle, i);
+
+        if (particle.y <= H) {
+            remainingFlakes++;
+        }
+        CheckForReposition(particle, i);
+    }
+
+    if (remainingFlakes === 0) {
+        StopConfetti();
+    }
+}
+
+function CheckForReposition(particle, index) {
+    if ((particle.x > W + 20 || particle.x < -20 || particle.y > H) && confettiActive) {
+        if (index % 5 > 0 || index % 2 == 0) //66.67% of the flakes
+        {
+            repositionParticle(particle, Math.random() * W, -10, Math.floor(Math.random() * 10) - 20);
+        } else {
+            if (Math.sin(angle) > 0) {
+                //Enter from the left
+                repositionParticle(particle, -20, Math.random() * H, Math.floor(Math.random() * 10) - 20);
+            } else {
+                //Enter from the right
+                repositionParticle(particle, W + 20, Math.random() * H, Math.floor(Math.random() * 10) - 20);
+            }
+        }
+    }
+}
+
+function stepParticle(particle, particleIndex) {
+    particle.tiltAngle += particle.tiltAngleIncremental;
+    particle.y += (Math.cos(angle + particle.d) + 3 + particle.r / 2) / 2;
+    particle.x += Math.sin(angle);
+    particle.tilt = (Math.sin(particle.tiltAngle - (particleIndex / 3))) * 15;
+}
+
+function repositionParticle(particle, xCoordinate, yCoordinate, tilt) {
+    particle.x = xCoordinate;
+    particle.y = yCoordinate;
+    particle.tilt = tilt;
+}
+
+function StartConfetti() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+    (function animloop() {
+        if (animationComplete) return null;
+        animationHandler = requestAnimFrame(animloop);
+        return Draw();
+    })();
+}
+
+function ClearTimers() {
+    clearTimeout(reactivationTimerHandler);
+    clearTimeout(animationHandler);
+}
+
+$scope.deactivate = function DeactivateConfetti() {
+    confettiActive = false;
+    ClearTimers();
+}
+
+function StopConfetti() {
+    animationComplete = true;
+    if (ctx == undefined) return;
+    ctx.clearRect(0, 0, W, H);
+}
+
+$scope.activate = function RestartConfetti() {
+    ClearTimers();
+    StopConfetti();
+    reactivationTimerHandler = setTimeout(function () {
+        confettiActive = true;
+        animationComplete = false;
+        InitializeConfetti();
+    }, 100);
+
+}
+
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+        return window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+
 
 }]);
