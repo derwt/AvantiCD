@@ -314,6 +314,14 @@ id-card.highlighted {
   /* border-radius: 5px; */
 }
 
+#canvas {
+  position: absolute;
+  top: 0px;
+  left: 5px;
+  width: 97%;
+  height: 100%;
+}
+
 #citySelect {
   display: flex;
   align-items: center;
@@ -407,4 +415,11 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 .inputErrorsAdvanced .hint.ng-leave, .inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
   bottom: 7px;
   opacity: 1;
+}
+
+canvas {
+  display: block;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
 }
