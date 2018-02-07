@@ -29,6 +29,14 @@ form .errors {
   color: white !important;
 }
 
+.btn-navbar {
+  position: absolute;
+  background-size: 100%;
+  background-color: #eee;
+  top: 125px;
+  left: 10px;
+}
+
 .container-main {
   height: 850px;
   overflow-x: hidden;
