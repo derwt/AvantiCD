@@ -139,6 +139,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let currentContainer, currentHiding = null;
 
   let createTransitionClass = 'tada';
+  let editVisualsClass = 'flash';
 
   let setCurrent = (container, hiding) => {
     currentContainer = container;
@@ -208,7 +209,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   function segueToEditContainer() {
     createContainer.addClass('fadeOutRight hidden');
     editContainer.removeClass('fadeInRight hidden fadeOutRight');
-    editContainer.addClass(createTransitionClass);
+    editContainer.addClass(createTransitionClass).one('animationend', (error) => {
+      editContainer.removeClass(createTransitionClass);
+    });
     setCurrent(editContainer, hidingEditContainer);
   }
 
@@ -305,6 +308,13 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     }
   }
 
+  let showSuccessfulEditVisuals = () => {
+    $scope.confettiBurst();
+    editContainer.addClass(editVisualsClass).one('animationend', (error) => {
+      editContainer.removeClass(editVisualsClass);
+    });
+  }
+
   let getPhoneNumbers = () => { return $scope.newCustomer.phone; }
   let getAddress = () => { return $('#addressInput').val(); }
   let getCross = () => { return $('#crossInput').val(); }
@@ -347,8 +357,8 @@ $scope.editCustomer = () => {
   $http.put(customersURL + searchInput.val(), $scope.selected)
     .then((response) => {
 
-      hideContainer(editContainer, hidingEditContainer);
       // TODO: Update UI with new customer information
+      showSuccessfulEditVisuals();
       $http.get(customersURL + searchInput.val())
         .then((response) => {
           $scope.customers = response.data.slice();
