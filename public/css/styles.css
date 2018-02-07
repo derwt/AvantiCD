@@ -162,6 +162,14 @@ textarea.md-input {
   padding: 3px 0px 3px 3px;
 }
 
+.grow-1 {
+  flex-grow: 1;
+}
+
+.grow-2 {
+  flex-grow: 2;
+}
+
 .id-card-template {
   display: table;
   width: calc(100% - 2px);
@@ -255,6 +263,24 @@ id-card.highlighted {
   margin-bottom: 10px;
 }
 
+@media (min-width: 1280px) {
+  .margin-name {
+    margin-right: 10px;
+  }
+}
+
+md-input-container:not(.md-input-invalid)>md-icon.name {
+  color: var(--history-accent-color);
+}
+
+md-input-container:not(.md-input-invalid)>md-icon.email {
+  color: green;
+}
+
+md-input-container.md-input-invalid>md-icon.email {
+  color: red;
+}
+
 .navbar-fixed-left {
   position: fixed;
   left: 0;
@@ -305,6 +331,8 @@ id-card.highlighted {
   font-size: 1rem;
   color: #5c5c5c;
 }
+
+#accountSelect {}
 
 #addressInput {
   /* margin: 10px; */
