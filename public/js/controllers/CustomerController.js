@@ -258,7 +258,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         $scope.select($scope.customers[0]);
         }
         else if (!hasSearchedOnce) {
-          hasSearchedOnce = true;
+          hasSearchedOnce = true; // Prevent redundant animation by breaking here
         }
         else
         {
