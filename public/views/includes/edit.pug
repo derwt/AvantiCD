@@ -2,6 +2,8 @@
   .header.animated
     | {{ headers.edit[randomIndex] }}
   form(name="editForm")
+    md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
+      i.material-icons arrow_back
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
@@ -29,7 +31,20 @@
     md-input-container.md-block
       label Customer Notes
       textarea#noteInput(ng-model="selected.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
+    div(layout="row" layout-md="column")
+      md-input-container.grow-1.margin-name
+        md-icon.material-icons.name person
+        label Name
+        input#nameInput.black-text(name="name" ng-model="selected.name")
+      md-input-container.grow-2
+        label Account Type
+        md-select(ng-model="selected.type" [value]="selected.type")
+          md-option#accountSelect(ng-repeat="type in accountTypes" value="{{ type }}") {{type}}
+    md-input-container.md-block
+      md-icon.material-icons.email email
+      input#emailInput(name="email" ng-model="selected.email" type="email"
+      placeholder="michael@pizzaface.com" ng-pattern="/^.+@.+\..+$/")
+      .errors(ng-messages="editForm.email.$error")
+        div(ng-message="pattern") Customer email must look like an email address.
     .text-center
       button#editButton.btn.green.darken-2(ng-click="editCustomer()") Edit Customer!
-  md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
-    i.material-icons arrow_back
