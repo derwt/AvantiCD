@@ -313,20 +313,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getAccountType = () => { return $('#accountSelect').val(); }
   let getEmail = () => { return $('#emailInput').val(); }
 
-  let prepareCustomer = () => {
-    $scope.newCustomer.phone = getPhoneNumbers();
-    // $scope.newCustomer.address = getAddress();
-    // $scope.newCustomer.cross = getCross();
-    // $scope.newCustomer.note = getNote();
-    // $scope.newCustomer.name = getName();
-    // $scope.newCustomer.type = getAccountType();
-    // $scope.newCustomer.email = getEmail();
-
-  }
-
   $scope.createCustomer = () => {
 
-    prepareCustomer();
     console.log($scope.newCustomer);
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
