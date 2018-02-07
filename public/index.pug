@@ -29,11 +29,6 @@ html(lang="en")
   body(ng-app="acid")
     .container-fluid.container-shifted
       // HEADER
-      nav.navbar.navbar-dark.bg-dark.navbar-fixed-left
-        .navbar-header
-          a.navbar-brand(href="/") Node and Angular
-        ul.nav.navbar-nav
-          li
-            a(href="/nerds") Michael Ryan
+      include views/includes/navbar.pug
       // ANGULAR DYNAMIC CONTENT
       div(ng-view="")
