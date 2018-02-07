@@ -48,6 +48,12 @@ customersRouter.get('/:number', (req, res, next) => {
   Customer.find({ phone: req.params.number }, (err, customers) => {
     if (err) res.status(404).send(err);
     console.log('Getting by Phone Number: ' + req.params.number);
+    // Default customer with undefined type to 'Personal'
+    for (let index in customers) {
+      if (customers[index].type == undefined) {
+        customers[index].type = 'Personal';
+      }
+    }
     res.json(customers);
   });
 });
@@ -87,6 +93,9 @@ customersRouter.put('/:number', (req, res, next) => {
       customer.cross   = req.body.cross;
       customer.note    = req.body.note;
       customer.ordered = req.body.ordered;
+      customer.name    = req.body.name;
+      customer.type    = req.body.type;
+      customer.email   = req.body.email;
       // customer.city    = defaultField('city');
       // customer.address = defaultField('address');
       // customer.cross   = defaultField('cross');
