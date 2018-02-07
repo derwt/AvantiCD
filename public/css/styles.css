@@ -277,15 +277,23 @@ id-card.highlighted {
   }
 }
 
-md-input-container:not(.md-input-invalid)>md-icon.name {
+md-input-container:not(.md-input-invalid)>md-icon.place {
+  color: #EA4335;
+}
+
+md-input-container:not(.md-input-invalid)>md-icon.my-location, md-input-container:not(.md-input-invalid)>md-icon.name {
   color: var(--history-accent-color);
 }
 
 md-input-container:not(.md-input-invalid)>md-icon.email {
-  color: green;
+  color: #008000;
 }
 
-md-input-container.md-input-invalid>md-icon.email {
+md-input-container:not(.md-input-invalid)>md-icon.map, md-input-container:not(.md-input-invalid)>md-icon.description {
+  color: #aaa;
+}
+
+md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-invalid>md-icon.email {
   color: red;
 }
 
