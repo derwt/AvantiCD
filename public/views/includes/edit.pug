@@ -16,7 +16,7 @@
       md-icon.material-icons.place place
       label Address
       input#addressInput(name="address" ng-model="selected.address" 
-      ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s[a-zA-Z]+)$/")
+      ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s.+)/")
       .errors(ng-messages="editForm.address.$error")
         div(ng-message="pattern") Please enter a valid Address.
     #citySelect.customer-field
