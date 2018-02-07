@@ -7,12 +7,16 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     city: "",
     address: "",
     cross: "",
-    note: ""
+    note: "",
+    name: "",
+    type: "Personal",
+    email: ""
   };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
+  $scope.accountTypes = ["Personal", "Business"];
   const customersURL = 'http://localhost:27017/customers/';
 
   const emptyCustomer = {
@@ -20,7 +24,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     city: "",
     address: "",
     cross: "",
-    note: ""
+    note: "",
+    name: "",
+    type: "Personal",
+    email: ""
   };
 
   $scope.headers = {
@@ -302,12 +309,19 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getAddress = () => { return $('#addressInput').val(); }
   let getCross = () => { return $('#crossInput').val(); }
   let getNote = () => { return $('#noteInput').val(); }
+  let getName = () => { return $('#nameInput').val(); }
+  let getAccountType = () => { return $('#accountSelect').val(); }
+  let getEmail = () => { return $('#emailInput').val(); }
 
   let prepareCustomer = () => {
     $scope.newCustomer.phone = getPhoneNumbers();
-    $scope.newCustomer.address = getAddress();
-    $scope.newCustomer.cross = getCross();
-    $scope.newCustomer.note = getNote();
+    // $scope.newCustomer.address = getAddress();
+    // $scope.newCustomer.cross = getCross();
+    // $scope.newCustomer.note = getNote();
+    // $scope.newCustomer.name = getName();
+    // $scope.newCustomer.type = getAccountType();
+    // $scope.newCustomer.email = getEmail();
+
   }
 
   $scope.createCustomer = () => {
