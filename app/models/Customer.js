@@ -31,14 +31,21 @@ var customerSchema = new Schema({
       values:['BL', 'SC','SM', 'RWS', 'RWC', 'FC', 'HB', ''],
       message: '{VALUE} is not a valid option. Check app/models/Customer.js for correct options',
     }
-    // required: [true, 'Customer city required'],
   },
   address: {
-    type: String,
+    type:  String,
     match: [/(^\d+\s[a-zA-Z]+\s[a-zA-Z]+$)/, 'Input address does not pass regex']
   },
   cross:   String,
   note:    String,
+  name:    String,
+  type: {
+    type:  String,
+    enum: {
+      values:['Personal', 'Business'],
+      message: '{VALUE} is not a valid option. Check app/models/Customer.js for correct options',
+    }
+  },
   ordered: Number
 }, {collection: 'Customers'});
 
