@@ -62,7 +62,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     "origin="+Avanti+"&destination=";
 
   let setMapDestination = (destination) => {
-      map[0].src = mapTemplate + destination;
+    if (destination != '') map[0].src = mapTemplate + destination;
+    else map[0].src = mapTemplate + Avanti;
   }
   let getMapDestination = () => {
     if (map[0] !== undefined) return (map[0].src.match(/destination=(.*)/)[1]);
@@ -130,33 +131,29 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let hidingSearchContainer, hidingRegistration, hidingEditContainer = false;
   let currentContainer, currentHiding = null;
 
+  let createTransitionClass = 'tada';
+
   let setCurrent = (container, hiding) => {
     currentContainer = container;
     currentHiding = hiding;
-  }
-
-  function removeClassFrom(element, className) {
-    if (element.hasClass(className)) element.removeClass(className);
   }
 
   function addClassTo(element, className) {
     if (!element.hasClass(className)) element.addClass(className);
   }
 
-  function slideAndHide(container) {
-    removeClassFrom(container, 'hidden');
-    removeClassFrom(container, 'fadeOutLeft');
+  function slideAndShow(container) {
+    container.removeClass('hidden fadeOutLeft');
   }
 
   function slideIn(container, hiding) {
-
     container.removeClass('fadeOutRight');
-    if (!searchContainer.hasClass('fadeOutLeft')) searchContainer.addClass('fadeOutLeft').one(
+    searchContainer.addClass('fadeOutLeft').one(
       'animationend', (error) => {
         if (hidingSearchContainer) searchContainer.addClass('hidden');
     });
     setTimeout(() => {
-      slideAndHide(container);
+      slideAndShow(container);
       $scope.$apply(() => {
         $scope.showingSearch = false
       });
@@ -166,15 +163,14 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
   function slideOut(container, hiding) {
 
-    removeClassFrom(searchContainer, 'fadeOutRight');
+    searchContainer.removeClass('fadeOutRight');
     $scope.showingSearch = true;
-    console.log($scope.showingSearch);
-    if (!container.hasClass('fadeOutRight')) container.addClass('fadeOutRight').one(
+    container.addClass('fadeOutRight').one(
       'animationend', (error) => {
         if (!hidingSearchContainer && hiding) container.addClass('hidden');
     });
     setTimeout(() => {
-      slideAndHide(searchContainer);
+      slideAndShow(searchContainer);
       addClassTo(searchContainer, 'fadeInLeft');
     }, 800);
 
@@ -194,8 +190,19 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     hiding = true;
     setCurrent(null, hiding);
     hidingSearchContainer = false;
+    if (container.hasClass(createTransitionClass)) {
+      container.removeClass(createTransitionClass);
+      container.addClass('fadeInRight');
+    }
     slideOut(container, hiding);
 
+  }
+
+  function segueToEditContainer() {
+    createContainer.addClass('fadeOutRight hidden');
+    editContainer.removeClass('fadeInRight hidden fadeOutRight');
+    editContainer.addClass(createTransitionClass);
+    setCurrent(editContainer, hidingEditContainer);
   }
 
   $scope.hideContainer = function() {
@@ -315,11 +322,11 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
           .then((response) => {
             $scope.customers = response.data.slice();
             $scope.selected = $scope.customers[0];
-          });
 
-          createContainer.addClass('fadeOut hidden');
-          editContainer.removeClass('fadeInRight hidden');
-          editContainer.addClass('tada');
+            segueToEditContainer();
+            setMapDestination($scope.selected.address);
+
+          });
 
       }, (response) => {
 
