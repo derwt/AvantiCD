@@ -20,6 +20,10 @@ customersRouter.post('/', (req, res) => {
     customer.cross   = req.body.cross;
     customer.note    = req.body.note;
     customer.ordered = req.body.ordered;
+    customer.name = req.body.name;
+    customer.type = req.body.type;
+    customer.email = req.body.email;
+
 
     customer.validate((err) => {
       if (err) {
