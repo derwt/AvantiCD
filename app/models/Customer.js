@@ -46,6 +46,10 @@ var customerSchema = new Schema({
       message: '{VALUE} is not a valid option. Check app/models/Customer.js for correct options',
     }
   },
+  email: {
+    type: String,
+    match: [/^.+@.+\..+$/, 'Input email address ({VALUE}) does not pass regex']
+  },
   ordered: Number
 }, {collection: 'Customers'});
 
