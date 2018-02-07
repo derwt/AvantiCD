@@ -10,6 +10,7 @@
     "angular-route": "latest",
     "angular-animate": "latest",
     "angular-messages": "latest",
-    "angular-material": "latest"
+    "angular-material": "latest",
+    "magic": "latest"
   }
 }
