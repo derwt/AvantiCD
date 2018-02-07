@@ -2,10 +2,12 @@
   .header.animated
     | {{ headers.create[randomIndex] }}
   form(name="createForm")
+    md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
+      i.material-icons arrow_back
     md-chips(ng-model="newCustomer.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
-    md-on-add="inputToInteger(create)" md-add-on-blur="true"
+    md-on-add="inputToInteger('create')" md-add-on-blur="true"
     md-separator-keys="chips.keys" placeholder="Add a phone number...") 
     .errors(ng-messages="createForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
@@ -29,7 +31,17 @@
     md-input-container.md-block
       label Customer Notes
       textarea#noteInput.black-text(ng-model="newCustomer.note" md-maxlength="150" max-rows="3" md-select-on-focus="")
+    div(layout="row" layout-md="column")
+      md-input-container.grow-1.margin-name
+        md-icon.material-icons.name person
+        label Name
+        input#nameInput.black-text(name="name" ng-model="newCustomer.name")
+      md-input-container.grow-2
+        label Account Type
+        md-select(ng-model="newCustomer.type" [value]="newCustomer.type")
+          md-option#accountSelect(ng-repeat="type in accountTypes" value="{{ type }}") {{type}}
+    md-input-container.md-block
+      md-icon.material-icons.email email
+      input#emailInput(ng-model="newCustomer.email" type="email" placeholder="michael@pizzaface.com")
     .text-center
-      button#createButton.btn.red.darken-2(ng-click="createCustomer()") Create!
-  md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
-    i.material-icons arrow_back
+      button#createButton.btn.red.darken-2(ng-click="inputToInteger('create'); createCustomer()") Create!
