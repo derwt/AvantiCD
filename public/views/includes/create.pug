@@ -42,6 +42,9 @@
           md-option#accountSelect(ng-repeat="type in accountTypes" value="{{ type }}") {{type}}
     md-input-container.md-block
       md-icon.material-icons.email email
-      input#emailInput(ng-model="newCustomer.email" type="email" placeholder="michael@pizzaface.com")
+      input#emailInput(name="email" ng-model="newCustomer.email" type="email"
+      placeholder="michael@pizzaface.com" ng-pattern="/^.+@.+\..+$/")
+      .errors(ng-messages="createForm.email.$error")
+        div(ng-message="pattern") Customer email must look like an email address.
     .text-center
       button#createButton.btn.red.darken-2(ng-click="inputToInteger('create'); createCustomer()") Create!
