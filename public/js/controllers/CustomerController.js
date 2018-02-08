@@ -10,7 +10,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     note: "",
     name: "",
     type: "Personal",
-    email: ""
+    email: "",
+    ordered: false
   };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
   $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
@@ -44,7 +45,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     note: "",
     name: "",
     type: "Personal",
-    email: ""
+    email: "",
+    ordered: false
   };
 
   let animations = {
@@ -369,10 +371,15 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getAccountType = () => { return $('#accountSelect').val(); }
   let getEmail = () => { return $('#emailInput').val(); }
 
-
+  let customerOrdered = () => { return $scope.newCustomer.ordered; }
   $scope.createCustomer = () => {
 
-    console.log($scope.newCustomer);
+    console.log($scope.newCustomer.ordered);
+    if (customerOrdered()) {
+      $scope.newCustomer.ordered = (new Date).getTime();
+    }
+    console.log($scope.newCustomer.ordered);
+
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
 
@@ -382,6 +389,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
             $scope.customers = response.data.slice();
             $scope.selected = $scope.customers[0];
 
+            if (typeof($scope.newCustomer.ordered) === 'number') {
+              $scope.newCustomer.ordered = true;
+            }
             segueToEditContainer();
             setMapDestination($scope.selected.address);
 
@@ -402,6 +412,11 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
 $scope.editCustomer = () => {
 
+  if (customerOrdered()) {
+    $scope.newCustomer.ordered = (new Date).getTime();
+    $scope.selected.ordered = (new Date).getTime();
+  }
+
   $http.put(customersURL + searchInput.val(), $scope.selected)
     .then((response) => {
 
@@ -409,7 +424,13 @@ $scope.editCustomer = () => {
         .then((response) => {
 
           showSuccessfulEditVisuals();
+          console.log($scope.newCustomer.ordered);
+          if (typeof($scope.newCustomer.ordered) === 'number') {
+            $scope.newCustomer.ordered = true;
+          }
           $scope.customers = response.data.slice();
+          setMapDestination($scope.customers[0].address);
+          console.log($scope.newCustomer.ordered);
 
         }, (response) => {
 

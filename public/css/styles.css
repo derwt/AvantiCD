@@ -5,7 +5,6 @@
 
 body {
   overflow-y: hidden;
-  margin-top: 30px;
 }
 
 html {
@@ -37,6 +36,18 @@ form .errors {
   background-color: #eee;
   top: 125px;
   left: 10px;
+}
+
+.container-address-ordered {
+  margin-top: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.container-address-ordered md-input-container {
+  font-size: 14pt;
+  color: black;
 }
 
 .container-main {
