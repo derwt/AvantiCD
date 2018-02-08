@@ -13,7 +13,7 @@
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
       div(ng-show="selected.phone.length === 0") Customer must have at least one phone number.
     .container-address-ordered(layout="row" layout-xs="column")
-      md-input-container.md-block(style="margin-top:50px;")
+      md-input-container.md-block
         md-icon.material-icons.place place
         label Address
         input#addressInput(name="address" ng-model="selected.address" 
