@@ -17,18 +17,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
   $scope.accountTypes = ["Personal", "Business"];
-  const customersURL = 'http://localhost:27017/customers/';
-
-  const emptyCustomer = {
-    phone: [],
-    city: "",
-    address: "",
-    cross: "",
-    note: "",
-    name: "",
-    type: "Personal",
-    email: ""
-  };
 
   $scope.headers = {
     edit:
@@ -47,11 +35,26 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   $scope.randomIndex = 0;
   $scope.showingSearch = true;
 
-  let semicolon = 186;
-  let comma = 188;
-  let enter = 13;
+  const customersURL = 'http://localhost:27017/customers/';
+  const emptyCustomer = {
+    phone: [],
+    city: "",
+    address: "",
+    cross: "",
+    note: "",
+    name: "",
+    type: "Personal",
+    email: ""
+  };
+
+  let animations = {
+    createTransition: 'tada',
+    editSuccess: 'flash',
+    createFailure: 'shake'
+  }
 
   // md-chips settings
+  let semicolon = 186, comma = 188, enter = 13;
   const self = this;
   $scope.chips = {
     readonly: false,
@@ -138,8 +141,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let hidingSearchContainer, hidingRegistration, hidingEditContainer = false;
   let currentContainer, currentHiding = null;
 
-  let createTransitionClass = 'tada';
-  let editVisualsClass = 'flash';
 
   let setCurrent = (container, hiding) => {
     currentContainer = container;
@@ -198,8 +199,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     hiding = true;
     setCurrent(null, hiding);
     hidingSearchContainer = false;
-    if (container.hasClass(createTransitionClass)) {
-      container.removeClass(createTransitionClass);
+    if (container.hasClass(animations.createTransition)) {
+      container.removeClass(animations.createTransition);
       container.addClass('fadeInRight');
     }
     slideOut(container, hiding);
@@ -209,8 +210,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   function segueToEditContainer() {
     createContainer.addClass('fadeOutRight hidden');
     editContainer.removeClass('fadeInRight hidden fadeOutRight');
-    editContainer.addClass(createTransitionClass).one('animationend', (error) => {
-      editContainer.removeClass(createTransitionClass);
+    editContainer.addClass(animations.createTransition).one('animationend', (error) => {
+      editContainer.removeClass(animations.createTransition);
     });
     setCurrent(editContainer, hidingEditContainer);
   }
@@ -238,6 +239,10 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
       }
       return;
+    }
+
+    $scope.logNewCustomer = () => {
+      console.log($scope.newCustomer);
     }
 
     $http.get('http://localhost:27017/customers/' + searchInput.val())
@@ -308,10 +313,17 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     }
   }
 
+  let createButton = $('#createButton');
+  let showCreateFailedVisuals = () => {
+    createButton.addClass(animations.createFailure).one('animationend', (error) => {
+      createButton.removeClass(animations.createFailure);
+    });
+  }
+
   let showSuccessfulEditVisuals = () => {
     $scope.confettiBurst();
-    editContainer.addClass(editVisualsClass).one('animationend', (error) => {
-      editContainer.removeClass(editVisualsClass);
+    editContainer.addClass(animations.editSuccess).one('animationend', (error) => {
+      editContainer.removeClass(animations.editSuccess);
     });
   }
 
@@ -323,14 +335,25 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getAccountType = () => { return $('#accountSelect').val(); }
   let getEmail = () => { return $('#emailInput').val(); }
 
+  function getSearchTypeAndValue(selectedSearchType) {
+    switch (selectedSearchType) {
+      case 'phone':
+        return customersURL + $scope.newCustomer.phone[0];
+        break;
+      default:
+        console.log("getSearchTypeAndValue defaulting!!! Check CustomerController for debugging!");
+    }
+}
+
   $scope.createCustomer = () => {
 
     console.log($scope.newCustomer);
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
 
+        let currentSearchType = 'phone'; // Default until search expansion #15
         $scope.confettiBurst();
-        $http.get(customersURL + searchInput.val())
+        $http.get(getSearchTypeAndValue(currentSearchType))
           .then((response) => {
             $scope.customers = response.data.slice();
             $scope.selected = $scope.customers[0];
@@ -346,6 +369,7 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         angular.forEach(response.data.errors, (error, index) => {
           $scope.errors.push(error.message);
         });
+        showCreateFailedVisuals();
 
       });
 
@@ -357,7 +381,6 @@ $scope.editCustomer = () => {
   $http.put(customersURL + searchInput.val(), $scope.selected)
     .then((response) => {
 
-      // TODO: Update UI with new customer information
       showSuccessfulEditVisuals();
       $http.get(customersURL + searchInput.val())
         .then((response) => {
