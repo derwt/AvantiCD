@@ -96,11 +96,6 @@ customersRouter.put('/:number', (req, res, next) => {
       customer.name    = req.body.name;
       customer.type    = req.body.type;
       customer.email   = req.body.email;
-      // customer.city    = defaultField('city');
-      // customer.address = defaultField('address');
-      // customer.cross   = defaultField('cross');
-      // customer.note    = defaultField('note');
-      // customer.ordered = defaultField('ordered')
 
       customer.validate((err) => {
         if (err) console.log('SAVE UNSUCCESSFUL: ' + err.message);

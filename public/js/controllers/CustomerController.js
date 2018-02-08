@@ -50,8 +50,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let animations = {
     createTransition: 'tada',
     editSuccess: 'flash',
-    createFailure: 'shake'
-  }
+    createFailure: 'shake',
+    editFailure: 'shake'
+  };
 
   // md-chips settings
   let semicolon = 186, comma = 188, enter = 13;
@@ -102,32 +103,32 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   $scope.validateChip = ($chip, type) => {
-  switch (type) {
-    case 'phone':
-      if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
-      switch (currentContainer) {
-        case editContainer:
-          for (i in $scope.selected.phone) {
-            // Reject duplicate values
-            if (Number($chip) == $scope.selected.phone[i]) {
-              return null;
+    switch (type) {
+      case 'phone':
+        if (!(/^\(?([0-9]{3})\)?[-.●]?([0-9]{3})[-.●]?([0-9]{4})$/).test($chip)) return null;
+        switch (currentContainer) {
+          case editContainer:
+            for (i in $scope.selected.phone) {
+              // Reject duplicate values
+              if (Number($chip) == $scope.selected.phone[i]) {
+                return null;
+              }
             }
-          }
-          break;
-        case createContainer:
-          for (i in $scope.newCustomer.phone) {
-            // Reject duplicate values
-            if (Number($chip) == $scope.newCustomer.phone[i]) {
-              return null;
+            break;
+          case createContainer:
+            for (i in $scope.newCustomer.phone) {
+              // Reject duplicate values
+              if (Number($chip) == $scope.newCustomer.phone[i]) {
+                return null;
+              }
             }
-          }
-          break;
-        default:
-          console.log("Error! Current container not valid!");
-      }
-      break;
+            break;
+          default:
+            console.log("Error! Current container not valid!");
+        }
+        break;
+    }
   }
-}
 
   let getSearchValue        = () => { return searchInput.val(); }
   let digitsLength     = () => { return getSearchValue().length; }
@@ -176,7 +177,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     $scope.showingSearch = true;
     container.addClass('fadeOutRight').one(
       'animationend', (error) => {
-        if (!hidingSearchContainer && hiding) container.addClass('hidden');
+        if (!hidingSearchContainer && hiding) {
+          container.addClass('fadeInRight hidden');
+        }
     });
     setTimeout(() => {
       slideAndShow(searchContainer);
@@ -223,6 +226,28 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let numberOfCustomers = () => { return $scope.customers.length; }
   let resetNewCustomer = () => { $scope.newCustomer = Object.assign({}, emptyCustomer); }
 
+  function getSearchPath(selectedSearchType) {
+    switch (selectedSearchType) {
+      case 'phone':
+        return customersURL + getSearchValue();
+      default:
+        console.log('getSearchPath defaulting </3');
+    }
+  }
+
+  function getCurrentPath(data) {
+    switch (getCurrentSearchType()) {
+      case 'phone':
+        return customersURL + data.phone[0];
+      default:
+        console.log("getCurrentPath defaulting!!! Check CustomerController for debugging!");
+    }
+  }
+
+  function getCurrentSearchType() {
+    return 'phone';
+  }
+
   let searchInput = $('#searchInput');
   $(searchInput).on('input', (e) => {
     if (!searchInputReady(getSearchValue())) {
@@ -245,7 +270,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
       console.log($scope.newCustomer);
     }
 
-    $http.get('http://localhost:27017/customers/' + searchInput.val())
+    let fromSearchType = getCurrentSearchType();
+    $http.get(getSearchPath(fromSearchType))
       .then((response) => {
 
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
@@ -314,14 +340,22 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   }
 
   let createButton = $('#createButton');
+  let editButton = $('#editButton');
   let showCreateFailedVisuals = () => {
     createButton.addClass(animations.createFailure).one('animationend', (error) => {
       createButton.removeClass(animations.createFailure);
     });
   }
 
+  let showFailedEditVisuals = () => {
+    editButton.addClass(animations.editFailure).one('animationend', (error) => {
+      editButton.removeClass(animations.editFailure);
+    });
+  }
+
   let showSuccessfulEditVisuals = () => {
     $scope.confettiBurst();
+    editContainer.removeClass('fadeInRight');
     editContainer.addClass(animations.editSuccess).one('animationend', (error) => {
       editContainer.removeClass(animations.editSuccess);
     });
@@ -335,15 +369,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let getAccountType = () => { return $('#accountSelect').val(); }
   let getEmail = () => { return $('#emailInput').val(); }
 
-  function getSearchTypeAndValue(selectedSearchType) {
-    switch (selectedSearchType) {
-      case 'phone':
-        return customersURL + $scope.newCustomer.phone[0];
-        break;
-      default:
-        console.log("getSearchTypeAndValue defaulting!!! Check CustomerController for debugging!");
-    }
-}
 
   $scope.createCustomer = () => {
 
@@ -351,9 +376,8 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
 
-        let currentSearchType = 'phone'; // Default until search expansion #15
         $scope.confettiBurst();
-        $http.get(getSearchTypeAndValue(currentSearchType))
+        $http.get(getCurrentPath($scope.newCustomer))
           .then((response) => {
             $scope.customers = response.data.slice();
             $scope.selected = $scope.customers[0];
@@ -381,20 +405,24 @@ $scope.editCustomer = () => {
   $http.put(customersURL + searchInput.val(), $scope.selected)
     .then((response) => {
 
-      showSuccessfulEditVisuals();
-      $http.get(customersURL + searchInput.val())
+      $http.get(getCurrentPath($scope.selected))
         .then((response) => {
+
+          showSuccessfulEditVisuals();
           $scope.customers = response.data.slice();
+
+        }, (response) => {
+
+          $scope.errors.splice(0 ,$scope.errors.length);
+          angular.forEach(response.data.errors, (error, index) => {
+            $scope.errors.push(error.message);
+          });
+          showFailedEditVisuals();
+
         });
 
     }, (response) => {
-
-      console.log(response);
-      $scope.errors.splice(0 ,$scope.errors.length);
-      angular.forEach(response.data.errors, (error, index) => {
-        $scope.errors.push(error.message);
-      });
-
+      console.log('POST Update failing in CustomerController');
     });
 
 }
