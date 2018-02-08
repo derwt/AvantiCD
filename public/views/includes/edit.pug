@@ -12,13 +12,17 @@
     .errors(ng-messages="editForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
       div(ng-show="selected.phone.length === 0") Customer must have at least one phone number.
-    md-input-container.md-block(style="margin-top:50px;")
-      md-icon.material-icons.place place
-      label Address
-      input#addressInput(name="address" ng-model="selected.address" 
-      ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s.+)/")
-      .errors(ng-messages="editForm.address.$error")
-        div(ng-message="pattern") Please enter a valid Address.
+    .container-address-ordered(layout="row" layout-xs="column")
+      md-input-container.md-block(style="margin-top:50px;")
+        md-icon.material-icons.place place
+        label Address
+        input#addressInput(name="address" ng-model="selected.address" 
+        ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s.+)/")
+        .errors(ng-messages="editForm.address.$error")
+          div(ng-message="pattern") Please enter a valid Address.
+      md-input-container.md-block
+        md-checkbox(ng-model="newCustomer.ordered" aria-label="Customer Ordered Checkbox")
+          | Just Ordered!
     #citySelect.customer-field
       div(ng-repeat="city in cities")
         button.btn.btn-city(
