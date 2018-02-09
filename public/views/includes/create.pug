@@ -23,13 +23,14 @@
       md-input-container.md-block
         md-checkbox(ng-model="newCustomer.ordered" aria-label="Customer Ordered Checkbox")
           | Just Ordered!
-    #citySelect.customer-field
-      div(ng-repeat="city in cities")
-        button.btn.btn-city(
-        ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
-        '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
-        ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
-        ng-click="selectCity($index, cities, 'create');") {{ city }}
+    .container-city-btn
+      #citySelect
+        div(ng-repeat="city in cities")
+          button.btn.btn-city(
+          ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
+          '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
+          ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
+          ng-click="selectCity($index, cities, 'create');") {{ city }}
     md-input-container.md-block
       md-icon.material-icons.map map
       label Cross Street
