@@ -11,6 +11,7 @@
     "angular-animate": "latest",
     "angular-messages": "latest",
     "angular-material": "latest",
-    "magic": "latest"
+    "magic": "latest",
+    "ngstorage": "^0.3.11"
   }
 }
