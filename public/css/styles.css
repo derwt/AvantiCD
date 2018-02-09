@@ -90,6 +90,12 @@ textarea.md-input {
   color: white;
 } */
 
+.container-city-btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .container-fluid {
   width: 93%;
 }
@@ -110,6 +116,7 @@ textarea.md-input {
   text-align: center;
   margin-bottom: 35px;
   padding: 0px 40px;
+  max-height: 42px;
 }
 
 .container-search label span {
@@ -384,14 +391,15 @@ md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-i
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  max-width: 400px;
 }
 
 #citySelect button {
   font-size: var(--form-font-size);
   font-weight: normal;
   border-radius: 10px;
-  padding: .5rem 1.35rem .5rem 1.35rem;
+  padding: .4rem 1.15rem;
 }
 
 #createButton {
