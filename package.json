@@ -20,15 +20,15 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "google-distance": "^1.0.1",
     "mdbootstrap": "^4.4.4",
     "method-override": "^2.3.10",
-    "mongodb": "^3.0.1",
-    "mongoose": "^4.13.9",
+    "mongodb": "^3.0.2",
+    "mongoose": "^4.13.11",
     "mongoose-unique-validator": "^1.0.6",
-    "pug": "^2.0.0-rc.4",
-    "google-distance": "^1.0.1"
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
-    "nodemon": "^1.14.10"
+    "nodemon": "^1.14.12"
   }
 }
