@@ -12,29 +12,26 @@
     .errors(ng-messages="editForm.phoneNumbers.$error")
       div(ng-message="md-max-chips") Maximum number of phone numbers reached.
       div(ng-show="selected.phone.length === 0") Customer must have at least one phone number.
-    .container-address-ordered(layout="row" layout-xs="column")
-      md-input-container.md-block
+    .container-address-city(layout="row" layout-md="column")
+      md-input-container.md-block.grow-1.margin-right
         md-icon.material-icons.place place
         label Address
         input#addressInput(name="address" ng-model="selected.address" 
         ng-pattern="/(^\\d+\\s[a-zA-Z]+\\s.+)/")
         .errors(ng-messages="editForm.address.$error")
-          div(ng-message="pattern") Please enter a valid Address.
+          div(ng-message="pattern") Please enter a valid Address. 
+      md-input-container
+        label City
+        md-select(ng-model="selected.city" [value]="selected.city")
+          md-option#citySelect(ng-repeat="city in cities" value="{{ city }}") {{city}}
+    .container-cross-ordered(layout="row" layout-md="column")
+      md-input-container.md-block.grow-1.margin-right
+        md-icon.material-icons.map map
+        label Cross Street
+        input#crossInput.black-text(name="cross" ng-model="selected.cross")
       md-input-container.md-block
         md-checkbox(ng-model="newCustomer.ordered" aria-label="Customer Ordered Checkbox")
           | Just Ordered!
-    .container-city-btn
-      #citySelect.customer-field
-        div(ng-repeat="city in cities")
-          button.btn.btn-city(
-          ng-class="{ 'btn-outline-{{getCityColorByIndex($index)}}': true,\
-          '{{ getCityColorByIndex($index) }}' : hover || cityButtonStates[$index], 'btn-city-selected' : cityButtonStates[$index] }"
-          ng-mouseenter="hover = true" ng-mouseleave="hover = false" 
-          ng-click="selectCity($index, cities, 'edit');") {{ city }}
-    md-input-container.md-block
-      md-icon.material-icons.map map
-      label Cross Street
-      input#crossInput(name="cross" ng-model="selected.cross")
     md-input-container.md-block
       md-icon.material-icons.description description
       label Customer Notes
@@ -55,4 +52,4 @@
       .errors(ng-messages="editForm.email.$error")
         div(ng-message="pattern") Customer email must look like an email address.
     .text-center
-      button#editButton.btn.green.darken-2.animated(ng-click="editCustomer()") Edit Customer!
+      button#editButton.btn.green.darken-2.animated(ng-click="editCustomer()") Update Customer!

@@ -14,8 +14,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     ordered: false
   };
   $scope.cities = ["BL", "SC", "SM", "RWS", "RWC", "FC", "HB"];
-  $scope.cityColors = ["green", "orange", "cyan", "amber", "red", "purple", "black"];
-  $scope.cityButtonStates =[false, false, false, false, false, false, false];
   $scope.errors = [];
   $scope.accountTypes = ["Personal", "Business"];
 
@@ -66,9 +64,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
     max: 3
   };
 
-  $scope.getCityColorByIndex = (index) => { return $scope.cityColors[index]; }
-  $scope.getCityIndexByName = (name) => { return $scope.cities.indexOf(name); }
-
   const map = $('#map');
   const Avanti = 'Avanti+Pizza,Belmont+CA+USA';
   const mapTemplate = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyBX8d3MNFqAY2PIqx4Y7OFc54TNS-ej6jg&" +
@@ -95,7 +90,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
 
     // TODO: Update call to UI
     setMapDestination(idCard.address);
-    selectCity($scope.getCityIndexByName($scope.selected.city));
     showContainer(editContainer, hidingEditContainer);
 
   }
@@ -279,7 +273,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         if (getMapDestination() != Avanti) setMapDestination(Avanti);
 
         resetNewCustomer();
-        resetCityButtonStates();
         $scope.customers = response.data.slice();
 
         if (numberOfCustomers() == 0)
@@ -303,25 +296,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
       });
 
   });
-
-  $scope.selectCity = (position, cityButtons, sender) => {
-    if (sender == 'edit') $scope.selected.city = cityButtons[position];
-    else if (sender == 'create') $scope.newCustomer.city = cityButtons[position];
-    angular.forEach(cityButtons, (button, index) => {
-      $scope.cityButtonStates[index] = (position == index);
-    });
-  }
-
-  function selectCity(index) {
-    for (let i in $scope.cityButtonStates) {
-      if (i != index) $scope.cityButtonStates[i] = false;
-      else $scope.cityButtonStates[i] = true;
-    }
-  }
-
-  function resetCityButtonStates() {
-    $scope.cityButtonStates = new Array($scope.cities.length).fill(false);
-  }
 
   $scope.inputToInteger = (sender) => {
     if (sender == 'edit') {
@@ -374,11 +348,9 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
   let customerOrdered = () => { return $scope.newCustomer.ordered; }
   $scope.createCustomer = () => {
 
-    console.log($scope.newCustomer.ordered);
     if (customerOrdered()) {
       $scope.newCustomer.ordered = (new Date).getTime();
     }
-    console.log($scope.newCustomer.ordered);
 
     $http.post('http://localhost:27017/customers/', $scope.newCustomer)
       .then((response) => {
@@ -417,20 +389,18 @@ $scope.editCustomer = () => {
     $scope.selected.ordered = (new Date).getTime();
   }
 
-  $http.put(customersURL + searchInput.val(), $scope.selected)
+  $http.put(getCurrentPath($scope.selected), $scope.selected)
     .then((response) => {
 
       $http.get(getCurrentPath($scope.selected))
         .then((response) => {
 
           showSuccessfulEditVisuals();
-          console.log($scope.newCustomer.ordered);
           if (typeof($scope.newCustomer.ordered) === 'number') {
             $scope.newCustomer.ordered = true;
           }
           $scope.customers = response.data.slice();
           setMapDestination($scope.customers[0].address);
-          console.log($scope.newCustomer.ordered);
 
         }, (response) => {
 
@@ -445,7 +415,6 @@ $scope.editCustomer = () => {
     }, (response) => {
       console.log('POST Update failing in CustomerController');
     });
-
 }
 
 /****************************************
