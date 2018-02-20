@@ -44,7 +44,6 @@ app.directive('titleContent', function() {
   };
 });
 
-
 app.filter('telephone', function() {
   return function(telephone) {
     if (!telephone) {
