@@ -1,5 +1,5 @@
-const Customer = require('./models/customer');
 const path = require('path');
+const Customer = require('./models/customer');
 const customersRouter = require('./customers');
 
 module.exports = function(app) {

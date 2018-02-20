@@ -1,7 +1,7 @@
 // MODEL
 const express = require('express');
-const Customer = require('./models/customer');
 const assert = require('assert');
+const Customer = require('./models/customer');
 
 customersRouter = express.Router();
 
@@ -9,7 +9,7 @@ customersRouter = express.Router();
 customersRouter.post('/', (req, res) => {
 
   let customer = new Customer();
-
+  
   // Find largest CID and assign +1 to new customer
   Customer.find().sort({cid: -1}).limit(1).cursor()
   .on('data', (doc)=> {

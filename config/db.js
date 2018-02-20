@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const Promise =  require('bluebird');
-const URL = 'mongodb://localhost:27017/avantiCD';
+// const URI = 'mongodb://localhost:27017'; // Local DB
+const URI = 'mongodb://derwt:ryanthompson@'+ // Atlas (Cloud DB) 
+'avanticd-shard-00-00-s9cbj.mongodb.net:27017'+
+',avanticd-shard-00-01-s9cbj.mongodb.net:27017,'+
+'avanticd-shard-00-02-s9cbj.mongodb.net:27017'+
+'/avantiCD?ssl=true&replicaSet=AvantiCD-shard-0&authSource=admin';
 
 //Set up default mongoose connection
-var mongoDB = URL;
+var mongoDB = URI;
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });
@@ -23,5 +28,5 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 module.exports = {
   connection: db,
-  url: URL
+  uri: URI
 }
