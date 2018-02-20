@@ -41,6 +41,23 @@ form .errors {
   height: 60px;
 }
 
+.container-history {
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  font-size: 25pt;
+  width: calc(100% - 10px);
+  height: calc(74% - 10px);
+  border-radius: 5px;
+}
+
+.container-history label {
+  opacity: 0.4;
+  font-weight: normal;
+}
+
 .container-main {
   height: 850px;
   overflow-x: hidden;
@@ -297,7 +314,8 @@ md-input-container:not(.md-input-invalid)>md-icon.place {
   color: #EA4335;
 }
 
-md-input-container:not(.md-input-invalid)>md-icon.my-location, md-input-container:not(.md-input-invalid)>md-icon.name {
+md-input-container:not(.md-input-invalid)>md-icon.my-location,
+md-input-container:not(.md-input-invalid)>md-icon.name {
   color: var(--history-accent-color);
 }
 
@@ -305,11 +323,13 @@ md-input-container:not(.md-input-invalid)>md-icon.email {
   color: #008000;
 }
 
-md-input-container:not(.md-input-invalid)>md-icon.map, md-input-container:not(.md-input-invalid)>md-icon.description {
+md-input-container:not(.md-input-invalid)>md-icon.map,
+md-input-container:not(.md-input-invalid)>md-icon.description {
   color: #aaa;
 }
 
-md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-invalid>md-icon.email {
+md-input-container.md-input-invalid>md-icon.place,
+md-input-container.md-input-invalid>md-icon.email {
   color: red;
 }
 
@@ -341,7 +361,6 @@ md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-i
   padding-right: 10px;
 }
 
-
 .phone-input-background {
   z-index: 1;
   position: sticky;
@@ -352,6 +371,7 @@ md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-i
 .margin-right {
   margin-right: 10px;
 }
+
 .unrequired-notes {
   /* margin: 30px 10px 10px 10px; */
   /* text-align: left; */
@@ -429,7 +449,8 @@ md-input-container.md-input-invalid>md-icon.place, md-input-container.md-input-i
   width: 250px;
 }
 
-input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -453,12 +474,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   color: grey;
 }
 
-.inputErrorsAdvanced .hint.ng-hide, .inputErrorsAdvanced .hint.ng-enter, .inputErrorsAdvanced .hint.ng-leave.ng-leave-active {
+.inputErrorsAdvanced .hint.ng-hide,
+.inputErrorsAdvanced .hint.ng-enter,
+.inputErrorsAdvanced .hint.ng-leave.ng-leave-active {
   bottom: 26px;
   opacity: 0;
 }
 
-.inputErrorsAdvanced .hint.ng-leave, .inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
+.inputErrorsAdvanced .hint.ng-leave,
+.inputErrorsAdvanced .hint.ng-enter.ng-enter-active {
   bottom: 7px;
   opacity: 1;
 }
