@@ -284,7 +284,6 @@ angular.module('CustomerController', []).controller('CustomerController', ['$sco
         else if (numberOfCustomers() == 1)
         {
         $scope.randomIndex = RandomInRange(0, $scope.headers.edit.length);
-        $scope.select($scope.customers[0]);
         }
         else if (!hasSearchedOnce) {
           hasSearchedOnce = true; // Prevent redundant animation by breaking here
