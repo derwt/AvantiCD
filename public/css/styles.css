@@ -140,14 +140,24 @@ textarea.md-input {
   margin-bottom: 30px;
 }
 
-.button-back {
+.btn-back {
   position: absolute;
   left: 10px;
   top: 10px;
 }
 
-.button-back i {
+.btn-back i {
   color: var(--history-accent-color);
+}
+
+.btn-delete {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.btn-delete i {
+  color: #EA4335;
 }
 
 .customer-detail {

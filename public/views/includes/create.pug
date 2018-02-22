@@ -2,7 +2,7 @@
   .header.animated
     | {{ headers.create[randomIndex] }}
   form(name="createForm")
-    md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
+    md-button.btn-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
       i.material-icons arrow_back
     md-chips(ng-model="newCustomer.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 

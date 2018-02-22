@@ -2,8 +2,10 @@
   .header.animated
     | {{ headers.edit[randomIndex] }}
   form(name="editForm")
-    md-button.button-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
+    md-button.btn-back.md-icon-button.md-accent(aria-label="Back" ng-click="hideContainer()")
       i.material-icons arrow_back
+    md-button.btn-delete.md-icon-button.md-accent(aria-label="Delete" ng-click="DisplayDelete()")
+      i.material-icons delete_forever
     md-chips(ng-model="selected.phone" name="phoneNumbers" 
     readonly="chips.readonly" md-removable="chips.removable" 
     md-max-chips="chips.max" md-transform-chip="validateChip($chip, 'phone')"
