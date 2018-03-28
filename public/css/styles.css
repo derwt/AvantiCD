@@ -5,6 +5,7 @@
 
 body {
   overflow-y: hidden;
+  background-color: #ccc;
 }
 
 html {
@@ -49,7 +50,7 @@ form .errors {
   background-color: #f2f2f2;
   font-size: 25pt;
   width: calc(100% - 10px);
-  height: calc(74% - 10px);
+  height: calc(74% - 17px);
   border-radius: 5px;
 }
 
@@ -59,10 +60,11 @@ form .errors {
 }
 
 .container-main {
-  height: 850px;
+  height: 720px;
   overflow-x: hidden;
   overflow-y: auto;
   transition: border 2s ease-in-out;
+  background-color: white;
 }
 
 .container-phone-input {
@@ -110,7 +112,7 @@ textarea.md-input {
 }
 
 .container-fluid {
-  width: 93%;
+  /* width: 93%; */
 }
 
 .container-shifted {
@@ -137,7 +139,7 @@ textarea.md-input {
 }
 
 .container-search md-input-container {
-  margin-bottom: 30px;
+  margin-bottom: 18px;
 }
 
 .btn-back {
@@ -182,6 +184,7 @@ textarea.md-input {
 .history {
   height: calc(25% - 16px);
   margin-top: 16px;
+  background-color: white;
 }
 
 .history .header {

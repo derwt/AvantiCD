@@ -1,7 +1,7 @@
 html
   body
-    .row(style="margin-top:40px;")
-      .col-md-4
+    .row(style="margin-top:20px;")
+      .col-md-6
         .z-depth-1-half.container-main.animated(ng-class="showingSearch ? 'border-search' : 'border-active'")
           canvas#canvas
           include includes/create.pug
@@ -11,6 +11,6 @@ html
             .scrollable
               div(ng-repeat="customer in customers")
                 id-card.id-card-template.animated.fadeInRight(info="customer" ng-click="select(customer, customers)" ng-class="{highlighted: isSelected(customer)}")            
-      .col-md-8
+      .col-md-6
         include includes/map.pug
         include includes/history.pug
