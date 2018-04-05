@@ -60,7 +60,7 @@ form .errors {
 }
 
 .container-main {
-  height: 720px;
+  height: 685px;
   overflow-x: hidden;
   overflow-y: auto;
   transition: border 2s ease-in-out;
